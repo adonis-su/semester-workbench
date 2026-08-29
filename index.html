@@ -1,0 +1,1630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Semester Workbench</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Semester Workbench" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Semester Workbench&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: var(--border-radius-lg, 12.5px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress {
+  display: flex;
+  height: 6px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 6px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;semester-workbench-2026&quot;&gt;
+  &lt;style&gt;
+    #semester-workbench-2026 { color: var(--foreground); font-family: inherit; }
+    #semester-workbench-2026 * { box-sizing: border-box; }
+    #semester-workbench-2026 .sw-shell { display: grid; gap: 16px; }
+    #semester-workbench-2026 .sw-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    #semester-workbench-2026 .sw-title { margin: 0; font-weight: 500; }
+    #semester-workbench-2026 .sw-sub { margin: 4px 0 0; color: var(--muted-foreground); }
+    #semester-workbench-2026 .sw-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    #semester-workbench-2026 .sw-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+    #semester-workbench-2026 .sw-stat-label { color: var(--muted-foreground); }
+    #semester-workbench-2026 .sw-stat-value { margin-top: 5px; font-weight: 500; }
+    #semester-workbench-2026 .sw-panel { display: grid; gap: 14px; }
+    #semester-workbench-2026 .sw-panel[hidden] { display: none; }
+    #semester-workbench-2026 .sw-controls { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+    #semester-workbench-2026 .sw-field { display: grid; gap: 5px; min-width: 150px; }
+    #semester-workbench-2026 .sw-grow { flex: 1 1 240px; }
+    #semester-workbench-2026 .sw-section-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    #semester-workbench-2026 .sw-section-head h2 { margin: 0; font-weight: 500; }
+    #semester-workbench-2026 .sw-task-list { display: grid; gap: 7px; }
+    #semester-workbench-2026 .sw-task { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    #semester-workbench-2026 .sw-task:last-child { border-bottom: 0; }
+    #semester-workbench-2026 .sw-task label { cursor: pointer; }
+    #semester-workbench-2026 .sw-task.is-done label { color: var(--muted-foreground); text-decoration: line-through; }
+    #semester-workbench-2026 .sw-cat { color: var(--muted-foreground); white-space: nowrap; }
+    #semester-workbench-2026 .sw-add { display: grid; grid-template-columns: minmax(160px,1fr) minmax(110px,150px) auto; gap: 8px; }
+    #semester-workbench-2026 .sw-two { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(230px,.8fr); gap: 14px; align-items: start; }
+    #semester-workbench-2026 .sw-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+    #semester-workbench-2026 .sw-metric { display: grid; gap: 5px; }
+    #semester-workbench-2026 .sw-alert { padding: 10px 0; color: var(--muted-foreground); }
+    #semester-workbench-2026 .sw-alert.is-risk { color: var(--destructive); }
+    #semester-workbench-2026 .sw-alert.is-ok { color: var(--green); }
+    #semester-workbench-2026 .sw-progress-label { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+    #semester-workbench-2026 .sw-table-wrap { overflow-x: auto; }
+    #semester-workbench-2026 .sw-table { min-width: 720px; }
+    #semester-workbench-2026 .sw-course-risk { color: var(--orange); }
+    #semester-workbench-2026 .sw-milestones { display: grid; gap: 8px; }
+    #semester-workbench-2026 .sw-milestone { display: grid; grid-template-columns: 96px 1fr auto; gap: 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    #semester-workbench-2026 .sw-milestone:last-child { border-bottom: 0; }
+    #semester-workbench-2026 .sw-empty { color: var(--muted-foreground); padding: 8px 0; }
+    #semester-workbench-2026 .sw-plan-list { display: grid; gap: 0; }
+    #semester-workbench-2026 .sw-plan-row { display: grid; grid-template-columns: 105px 1fr auto; gap: 10px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--border); }
+    #semester-workbench-2026 .sw-plan-row:last-child { border-bottom: 0; }
+    #semester-workbench-2026 .sw-time { color: var(--muted-foreground); white-space: nowrap; }
+    #semester-workbench-2026 .sw-class { color: var(--blue); }
+    #semester-workbench-2026 .sw-study { color: var(--foreground); }
+    #semester-workbench-2026 .sw-health { color: var(--green); }
+    #semester-workbench-2026 .sw-schedule-table { min-width: 860px; }
+    #semester-workbench-2026 .sw-day-cell { display: grid; gap: 5px; }
+    #semester-workbench-2026 .sw-day-cell strong { font-weight: 500; }
+    #semester-workbench-2026 textarea { resize: vertical; }
+    @media (max-width: 680px) {
+      #semester-workbench-2026 .sw-stats, #semester-workbench-2026 .sw-two { grid-template-columns: 1fr; }
+      #semester-workbench-2026 .sw-add { grid-template-columns: 1fr; }
+      #semester-workbench-2026 .sw-metrics { grid-template-columns: 1fr 1fr; }
+      #semester-workbench-2026 .sw-milestone { grid-template-columns: 88px 1fr; }
+      #semester-workbench-2026 .sw-milestone .viz-badge { grid-column: 2; justify-self: start; }
+      #semester-workbench-2026 .sw-plan-row { grid-template-columns: 88px 1fr; }
+      #semester-workbench-2026 .sw-plan-row .viz-badge { grid-column: 2; justify-self: start; }
+    }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;sw-shell&quot;&gt;
+    &lt;div class=&quot;sw-head&quot;&gt;
+      &lt;div&gt;
+        &lt;h1 class=&quot;sw-title&quot;&gt;大三上学期工作台&lt;/h1&gt;
+        &lt;p class=&quot;sw-sub&quot; id=&quot;sw-phase-line&quot;&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;nav class=&quot;sw-nav&quot; aria-label=&quot;工作台视图&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-tab=&quot;today&quot;&gt;今日&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;week&quot;&gt;本周&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;courses&quot;&gt;课程与GPA&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;schedule&quot;&gt;课表排程&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; id=&quot;sw-export&quot;&gt;导出备份&lt;/button&gt;
+        &lt;label class=&quot;btn btn-ghost&quot; for=&quot;sw-import&quot;&gt;导入备份&lt;/label&gt;
+        &lt;input id=&quot;sw-import&quot; class=&quot;sr-only&quot; type=&quot;file&quot; accept=&quot;application/json&quot;&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;text-small text-muted&quot; id=&quot;sw-backup-status&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;sw-stats&quot; aria-live=&quot;polite&quot;&gt;
+      &lt;div class=&quot;card viz-stat&quot;&gt;&lt;div class=&quot;sw-stat-label&quot;&gt;今日完成&lt;/div&gt;&lt;div class=&quot;viz-stat-value sw-stat-value&quot; id=&quot;sw-today-stat&quot;&gt;0 / 0&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;card viz-stat&quot;&gt;&lt;div class=&quot;sw-stat-label&quot;&gt;本周完成&lt;/div&gt;&lt;div class=&quot;viz-stat-value sw-stat-value&quot; id=&quot;sw-week-stat&quot;&gt;0%&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;card viz-stat&quot;&gt;&lt;div class=&quot;sw-stat-label&quot;&gt;本周状态&lt;/div&gt;&lt;div class=&quot;viz-stat-value sw-stat-value&quot; id=&quot;sw-risk-stat&quot;&gt;待填写&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;today&quot;&gt;
+      &lt;div class=&quot;sw-controls&quot;&gt;
+        &lt;label class=&quot;sw-field form-label&quot;&gt;日期&lt;input id=&quot;sw-day&quot; class=&quot;form-control&quot; type=&quot;date&quot;&gt;&lt;/label&gt;
+        &lt;label class=&quot;sw-field sw-grow form-label&quot;&gt;今日唯一主任务&lt;input id=&quot;sw-main-day&quot; class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;只写一件最重要的事&quot;&gt;&lt;/label&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;sw-load-day&quot;&gt;载入当天建议&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;今日清单&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot; id=&quot;sw-day-phase&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-progress-label&quot;&gt;&lt;span&gt;完成进度&lt;/span&gt;&lt;span id=&quot;sw-day-progress-label&quot;&gt;0%&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;progress&quot; id=&quot;sw-day-progress&quot; role=&quot;progressbar&quot; aria-label=&quot;今日任务完成进度&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; aria-valuenow=&quot;0&quot;&gt;&lt;div class=&quot;progress-bar&quot; style=&quot;width:0%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-task-list&quot; id=&quot;sw-day-tasks&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-add&quot;&gt;
+          &lt;input id=&quot;sw-day-new&quot; class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;添加今日事项&quot;&gt;
+          &lt;select id=&quot;sw-day-cat&quot; class=&quot;form-select&quot; aria-label=&quot;事项类别&quot;&gt;&lt;option&gt;健康&lt;/option&gt;&lt;option&gt;课程&lt;/option&gt;&lt;option&gt;考试&lt;/option&gt;&lt;option&gt;实习&lt;/option&gt;&lt;option&gt;论文&lt;/option&gt;&lt;/select&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;sw-day-add&quot;&gt;添加&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;今日课程与建议时段&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot; id=&quot;sw-day-name&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-plan-list&quot; id=&quot;sw-day-plan&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;label class=&quot;sw-field form-label&quot;&gt;今日记录&lt;textarea id=&quot;sw-day-note&quot; class=&quot;form-control&quot; rows=&quot;3&quot; placeholder=&quot;记录困难、完成结果或明天需要接续的事项&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;week&quot; hidden&gt;
+      &lt;div class=&quot;sw-controls&quot;&gt;
+        &lt;label class=&quot;sw-field form-label&quot;&gt;本周开始&lt;input id=&quot;sw-week&quot; class=&quot;form-control&quot; type=&quot;date&quot;&gt;&lt;/label&gt;
+        &lt;label class=&quot;sw-field sw-grow form-label&quot;&gt;本周唯一主任务&lt;input id=&quot;sw-main-week&quot; class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;例如：完成国赛；稳定雅思口写；期末复习&quot;&gt;&lt;/label&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;sw-load-week&quot;&gt;载入阶段建议&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sw-two&quot;&gt;
+        &lt;div class=&quot;card&quot;&gt;
+          &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;本周待办&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot; id=&quot;sw-week-phase&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-task-list&quot; id=&quot;sw-week-tasks&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-add&quot;&gt;
+            &lt;input id=&quot;sw-week-new&quot; class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;添加本周事项&quot;&gt;
+            &lt;select id=&quot;sw-week-cat&quot; class=&quot;form-select&quot; aria-label=&quot;事项类别&quot;&gt;&lt;option&gt;健康&lt;/option&gt;&lt;option&gt;课程&lt;/option&gt;&lt;option&gt;考试&lt;/option&gt;&lt;option&gt;实习&lt;/option&gt;&lt;option&gt;论文&lt;/option&gt;&lt;/select&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;sw-week-add&quot;&gt;添加&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;card&quot;&gt;
+          &lt;h2&gt;周日检查&lt;/h2&gt;
+          &lt;div class=&quot;sw-metrics&quot;&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;治疗/用药&lt;select id=&quot;m-med&quot; class=&quot;form-select&quot;&gt;&lt;option value=&quot;&quot;&gt;待填写&lt;/option&gt;&lt;option value=&quot;yes&quot;&gt;按计划&lt;/option&gt;&lt;option value=&quot;no&quot;&gt;未按计划&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;课程预警数&lt;input id=&quot;m-warn&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;7&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;无氧次数&lt;input id=&quot;m-strength&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;7&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;有氧次数&lt;input id=&quot;m-cardio&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;14&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;IELTS小时&lt;input id=&quot;m-ielts&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;GRE小时&lt;input id=&quot;m-gre&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;投递数&lt;input id=&quot;m-apps&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;论文小时&lt;input id=&quot;m-paper&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
+          &lt;/div&gt;
+          &lt;div id=&quot;sw-week-alert&quot; class=&quot;sw-alert&quot; aria-live=&quot;polite&quot;&gt;填写后生成减负判断&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;h2&gt;接下来节点&lt;/h2&gt;
+        &lt;div class=&quot;sw-milestones&quot; id=&quot;sw-milestones&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;courses&quot; hidden&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;七门课程&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;目标学期GPA ≥ 3.724&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;课程&lt;/th&gt;&lt;th&gt;类型&lt;/th&gt;&lt;th&gt;策略&lt;/th&gt;&lt;th&gt;目标等级&lt;/th&gt;&lt;th&gt;首次重要结果&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-course-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sw-stats&quot; aria-live=&quot;polite&quot;&gt;
+        &lt;div class=&quot;card viz-stat&quot;&gt;&lt;div class=&quot;sw-stat-label&quot;&gt;所需学期GPA&lt;/div&gt;&lt;div class=&quot;viz-stat-value sw-stat-value&quot;&gt;3.724&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;card viz-stat&quot;&gt;&lt;div class=&quot;sw-stat-label&quot;&gt;目标组合&lt;/div&gt;&lt;div class=&quot;viz-stat-value sw-stat-value&quot;&gt;2A + 5A−&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;card viz-stat&quot;&gt;&lt;div class=&quot;sw-stat-label&quot;&gt;当前目标预计累计GPA&lt;/div&gt;&lt;div class=&quot;viz-stat-value sw-stat-value&quot; id=&quot;sw-projected-gpa&quot;&gt;待评估&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;h2&gt;两门数学均为B+时&lt;/h2&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;其余五门&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;学期GPA&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;累计GPA&lt;/th&gt;&lt;th&gt;结论&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr&gt;&lt;td&gt;5A&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.800&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.619&lt;/td&gt;&lt;td&gt;达到目标&lt;/td&gt;&lt;/tr&gt;
+              &lt;tr&gt;&lt;td&gt;4A + 1A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.757&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.608&lt;/td&gt;&lt;td&gt;最低可行补偿&lt;/td&gt;&lt;/tr&gt;
+              &lt;tr&gt;&lt;td&gt;3A + 2A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.714&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.598&lt;/td&gt;&lt;td class=&quot;text-destructive&quot;&gt;接近但不足&lt;/td&gt;&lt;/tr&gt;
+              &lt;tr&gt;&lt;td&gt;2A + 3A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.671&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.587&lt;/td&gt;&lt;td class=&quot;text-destructive&quot;&gt;无法补足&lt;/td&gt;&lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;schedule&quot; hidden&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;固定课程表与学习布局&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;预习在课前 · 复盘在24小时内&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-schedule-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;星期&lt;/th&gt;&lt;th&gt;正式课程&lt;/th&gt;&lt;th&gt;预习/复习与刷题&lt;/th&gt;&lt;th&gt;训练安排&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-schedule-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;h2&gt;排程原则&lt;/h2&gt;
+        &lt;div class=&quot;sw-plan-list&quot;&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;课前20–45分钟&lt;/span&gt;&lt;span&gt;浏览讲义、标出不会的概念；不追求完整学会。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;预习&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;课后24小时内&lt;/span&gt;&lt;span&gt;整理笔记、写三条关键结论、补齐课堂疑问。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;复盘&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;数学课每周2次&lt;/span&gt;&lt;span&gt;90分钟集中刷题，并把错题写入可回看的错误清单。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;刷题&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;周日晚上&lt;/span&gt;&lt;span&gt;完成周复盘，确定下周唯一主任务与课程预警。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;计划&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    (() =&gt; {
+      const root = document.getElementById(&#x27;semester-workbench-2026&#x27;);
+      const storageKey = &#x27;semester-workbench-2026-v1&#x27;;
+      const gradePoints = {&#x27;A&#x27;:4,&#x27;A-&#x27;:3.7,&#x27;B+&#x27;:3.3,&#x27;B&#x27;:3};
+      const courses = [
+        {name:&#x27;Applied Econometrics&#x27;, type:&#x27;数学风险&#x27;, strategy:&#x27;冲A/A-，底线B+&#x27;},
+        {name:&#x27;Business Research Methods&#x27;, type:&#x27;研究方法&#x27;, strategy:&#x27;待评估&#x27;},
+        {name:&#x27;Commercial Translation&#x27;, type:&#x27;语言/翻译&#x27;, strategy:&#x27;待评估&#x27;},
+        {name:&#x27;Financial Mathematics&#x27;, type:&#x27;数学风险&#x27;, strategy:&#x27;冲A/A-，底线B+&#x27;},
+        {name:&#x27;Japanese II&#x27;, type:&#x27;语言&#x27;, strategy:&#x27;待评估&#x27;},
+        {name:&#x27;Management Information Systems&#x27;, type:&#x27;商科/信息系统&#x27;, strategy:&#x27;待评估&#x27;},
+        {name:&#x27;Service Leadership&#x27;, type:&#x27;管理/写作&#x27;, strategy:&#x27;待评估&#x27;}
+      ];
+      const milestones = [
+        [&#x27;2026-09-03&#x27;,&#x27;确认国赛论文总整合者&#x27;,&#x27;国赛&#x27;],[&#x27;2026-09-10&#x27;,&#x27;数学建模国赛开始&#x27;,&#x27;国赛&#x27;],
+        [&#x27;2026-09-20&#x27;,&#x27;按首次考核选择2门冲A候选&#x27;,&#x27;GPA&#x27;],[&#x27;2026-10-24&#x27;,&#x27;IELTS计划场次&#x27;,&#x27;IELTS&#x27;],
+        [&#x27;2026-10-31&#x27;,&#x27;完成GRE官方限时诊断&#x27;,&#x27;GRE&#x27;],[&#x27;2026-11-30&#x27;,&#x27;论文投稿目标&#x27;,&#x27;论文&#x27;],
+        [&#x27;2026-12-01&#x27;,&#x27;进入期末模式&#x27;,&#x27;GPA&#x27;],[&#x27;2027-02-28&#x27;,&#x27;GRE寒假首考最晚窗口&#x27;,&#x27;GRE&#x27;]
+      ];
+      const dayNames = [&#x27;周日&#x27;,&#x27;周一&#x27;,&#x27;周二&#x27;,&#x27;周三&#x27;,&#x27;周四&#x27;,&#x27;周五&#x27;,&#x27;周六&#x27;];
+      const dayPlans = {
+        1: [
+          {time:&#x27;08:50–09:20&#x27;,text:&#x27;Japanese II 课前预习：词汇、句型与课文结构&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;10:00–11:50&#x27;,text:&#x27;Japanese II · T7-702&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;11:55–12:20&#x27;,text:&#x27;Japanese II 课后笔记：三条句型 + 生词回看&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;13:00–14:50&#x27;,text:&#x27;Commercial Translation · T5-703&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;15:10–15:50&#x27;,text:&#x27;Commercial Translation 复盘：整理译法、错误与表达替换&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;16:30–18:00&#x27;,text:&#x27;无氧训练 + ≥30分钟有氧&#x27;,kind:&#x27;health&#x27;,cat:&#x27;健康&#x27;}
+        ],
+        2: [
+          {time:&#x27;09:30–10:15&#x27;,text:&#x27;Service Leadership 预习：浏览案例与课堂问题&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;10:30–11:15&#x27;,text:&#x27;完成周一课程遗留或阶段主任务&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;14:00–15:50&#x27;,text:&#x27;Service Leadership · T5-307&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;16:15–17:00&#x27;,text:&#x27;Financial Mathematics 预习：公式含义与例题&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;17:05–17:30&#x27;,text:&#x27;Service Leadership 课堂笔记压缩为行动要点&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;18:15–18:45&#x27;,text:&#x27;Business Research Methods 课前阅读&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;19:00–21:50&#x27;,text:&#x27;Business Research Methods · T6-401&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;}
+        ],
+        3: [
+          {time:&#x27;09:00–10:50&#x27;,text:&#x27;Financial Mathematics · T6-202&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;11:10–12:40&#x27;,text:&#x27;Financial Mathematics 刷题块① + 错题记录&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;13:30–14:10&#x27;,text:&#x27;Business Research Methods 笔记整理与研究问题提炼&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;14:20–15:05&#x27;,text:&#x27;Applied Econometrics 预习：概念、公式与软件步骤&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;15:30–17:00&#x27;,text:&#x27;无氧训练 + ≥30分钟有氧&#x27;,kind:&#x27;health&#x27;,cat:&#x27;健康&#x27;},
+          {time:&#x27;18:10–18:40&#x27;,text:&#x27;Management Information Systems 课前预习&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;19:00–20:50&#x27;,text:&#x27;Management Information Systems · T5-404&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;}
+        ],
+        4: [
+          {time:&#x27;09:00–09:50&#x27;,text:&#x27;Management Information Systems · T4-403&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;10:10–10:50&#x27;,text:&#x27;MIS 两次课程合并整理：概念、案例、作业要求&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;11:10–12:00&#x27;,text:&#x27;Applied Econometrics 深度预习：推导不求全懂，先标疑问&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;14:00–14:50&#x27;,text:&#x27;Commercial Translation · T6-505&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;15:00–17:50&#x27;,text:&#x27;Applied Econometrics · T6-505&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;18:20–19:00&#x27;,text:&#x27;翻译 + 计量经济学课后笔记与疑问清单&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;19:30–20:00&#x27;,text:&#x27;预习周五 Japanese II 与 Financial Mathematics&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;}
+        ],
+        5: [
+          {time:&#x27;09:00–09:50&#x27;,text:&#x27;Japanese II · T7-601&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;10:10–10:40&#x27;,text:&#x27;Japanese II 本周知识汇总与记忆检查&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;10:50–12:20&#x27;,text:&#x27;Applied Econometrics 刷题块① + 错题记录&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;13:25–13:50&#x27;,text:&#x27;Financial Mathematics 课前例题回看&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;14:00–14:50&#x27;,text:&#x27;Financial Mathematics · T4-603&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;15:00–15:50&#x27;,text:&#x27;Service Leadership · T6-603&#x27;,kind:&#x27;class&#x27;,cat:&#x27;上课&#x27;},
+          {time:&#x27;16:10–17:40&#x27;,text:&#x27;Financial Mathematics 刷题块② + 本周错题归档&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;18:00–19:30&#x27;,text:&#x27;无氧训练 + ≥30分钟有氧&#x27;,kind:&#x27;health&#x27;,cat:&#x27;健康&#x27;}
+        ],
+        6: [
+          {time:&#x27;09:30–11:00&#x27;,text:&#x27;七门课程作业、欠账与笔记整理&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;14:00–15:30&#x27;,text:&#x27;阶段深度块：雅思全模/输出；雅思后改为GRE&#x27;,kind:&#x27;study&#x27;,cat:&#x27;考试&#x27;},
+          {time:&#x27;16:00–17:00&#x27;,text:&#x27;论文或旧项目，严格服从本周时间上限&#x27;,kind:&#x27;study&#x27;,cat:&#x27;论文&#x27;}
+        ],
+        0: [
+          {time:&#x27;10:00–11:30&#x27;,text:&#x27;Applied Econometrics 刷题块② + 错题复盘&#x27;,kind:&#x27;study&#x27;,cat:&#x27;数学&#x27;},
+          {time:&#x27;14:00–15:00&#x27;,text:&#x27;预习周一 Japanese II 与 Commercial Translation&#x27;,kind:&#x27;study&#x27;,cat:&#x27;课程&#x27;},
+          {time:&#x27;16:00–17:00&#x27;,text:&#x27;≥30分钟有氧 + 恢复&#x27;,kind:&#x27;health&#x27;,cat:&#x27;健康&#x27;},
+          {time:&#x27;19:00–19:45&#x27;,text:&#x27;周复盘：健康、课程预警、时间上限与下周唯一主任务&#x27;,kind:&#x27;study&#x27;,cat:&#x27;计划&#x27;}
+        ]
+      };
+      let state;
+      try { state = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch (_) { state = {}; }
+      state.daily ||= {}; state.weekly ||= {}; state.courses ||= {};
+
+      const q = s =&gt; root.querySelector(s);
+      const qa = s =&gt; [...root.querySelectorAll(s)];
+      const iso = d =&gt; d.toISOString().slice(0,10);
+      const parseDate = s =&gt; new Date(`${s}T12:00:00`);
+      const today = new Date();
+      const mondayOf = d =&gt; { const x = new Date(d); const day = x.getDay() || 7; x.setDate(x.getDate() - day + 1); return x; };
+      const uid = () =&gt; `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      const save = () =&gt; localStorage.setItem(storageKey, JSON.stringify(state));
+
+      function phase(date) {
+        const x = iso(date);
+        if (x &lt;= &#x27;2026-09-09&#x27;) return {name:&#x27;开学与国赛准备&#x27;, focus:&#x27;国赛准备 + 课程信息收集&#x27;};
+        if (x &lt;= &#x27;2026-09-13&#x27;) return {name:&#x27;数学建模国赛&#x27;, focus:&#x27;只做国赛，暂停其他主线&#x27;};
+        if (x &lt;= &#x27;2026-10-24&#x27;) return {name:&#x27;GPA + IELTS&#x27;, focus:&#x27;七门课程 + 雅思稳定输出&#x27;};
+        if (x &lt;= &#x27;2026-11-30&#x27;) return {name:&#x27;求职 + GRE启动&#x27;, focus:&#x27;投递、GRE诊断与论文投稿&#x27;};
+        if (x &lt;= &#x27;2026-12-20&#x27;) return {name:&#x27;期末冲刺&#x27;, focus:&#x27;GPA优先，暂停论文与非紧急投递&#x27;};
+        return {name:&#x27;实习 + GRE&#x27;, focus:&#x27;完成三个月实习，GRE每周8–10小时&#x27;};
+      }
+
+      function defaultDaily(date) {
+        const p = phase(date).name;
+        const tasks = [
+          [&#x27;按医嘱完成用药、饮食与健康记录&#x27;,&#x27;健康&#x27;],
+          [&#x27;只推进今日唯一主任务&#x27;,&#x27;课程&#x27;]
+        ];
+        (dayPlans[date.getDay()] || []).filter(x=&gt;x.kind!==&#x27;class&#x27;).forEach(x=&gt;tasks.push([`${x.time} ${x.text}`,x.cat]));
+        if (p === &#x27;开学与国赛准备&#x27;) tasks.push([&#x27;完成一个国赛准备动作&#x27;,&#x27;考试&#x27;]);
+        if (p === &#x27;数学建模国赛&#x27;) tasks.push([&#x27;同步模型、数据口径与论文进度&#x27;,&#x27;考试&#x27;]);
+        if (p === &#x27;GPA + IELTS&#x27;) tasks.push([&#x27;完成一次雅思输出或听读训练&#x27;,&#x27;考试&#x27;]);
+        if (p === &#x27;求职 + GRE启动&#x27;) tasks.push([&#x27;完成一次投递、SQL/案例或GRE训练&#x27;,&#x27;实习&#x27;]);
+        if (p === &#x27;期末冲刺&#x27;) tasks.push([&#x27;完成一项期末复习闭环&#x27;,&#x27;课程&#x27;]);
+        if (p === &#x27;实习 + GRE&#x27;) tasks.push([&#x27;完成实习复盘或GRE训练&#x27;,&#x27;考试&#x27;]);
+        return tasks.map(([text,cat]) =&gt; ({id:uid(),text,cat,done:false}));
+      }
+
+      function defaultWeekly(date) {
+        const p = phase(date).name;
+        const items = [
+          [&#x27;完成3次无氧训练&#x27;,&#x27;健康&#x27;],[&#x27;完成4次≥30分钟有氧&#x27;,&#x27;健康&#x27;],
+          [&#x27;所有上过的课程在24小时内完成短复习&#x27;,&#x27;课程&#x27;],
+          [&#x27;Applied Econometrics完成2次集中做题&#x27;,&#x27;课程&#x27;],
+          [&#x27;Financial Mathematics完成2次集中做题&#x27;,&#x27;课程&#x27;],
+          [&#x27;周日复盘并确定下周唯一主任务&#x27;,&#x27;健康&#x27;]
+        ];
+        if (p === &#x27;开学与国赛准备&#x27;) items.push([&#x27;确认国赛整合与交叉检查机制&#x27;,&#x27;考试&#x27;],[&#x27;收集七门课考核构成和往年给分&#x27;,&#x27;课程&#x27;]);
+        if (p === &#x27;数学建模国赛&#x27;) items.push([&#x27;国赛期间暂停雅思、论文和求职&#x27;,&#x27;考试&#x27;]);
+        if (p === &#x27;GPA + IELTS&#x27;) items.push([&#x27;口语短练4次&#x27;,&#x27;考试&#x27;],[&#x27;写作限时输出2次并复盘&#x27;,&#x27;考试&#x27;],[&#x27;听读训练2–3套&#x27;,&#x27;考试&#x27;]);
+        if (p === &#x27;求职 + GRE启动&#x27;) items.push([&#x27;GRE训练约6小时&#x27;,&#x27;考试&#x27;],[&#x27;投递5–8个匹配岗位&#x27;,&#x27;实习&#x27;],[&#x27;SQL 3小时 + 业务案例2小时&#x27;,&#x27;实习&#x27;],[&#x27;论文不超过4小时&#x27;,&#x27;论文&#x27;]);
+        if (p === &#x27;期末冲刺&#x27;) items.push([&#x27;论文与非紧急投递暂停&#x27;,&#x27;论文&#x27;],[&#x27;GRE降至每周3小时&#x27;,&#x27;考试&#x27;]);
+        if (p === &#x27;实习 + GRE&#x27;) items.push([&#x27;GRE训练8–10小时&#x27;,&#x27;考试&#x27;],[&#x27;记录一个实习STAR案例&#x27;,&#x27;实习&#x27;]);
+        return items.map(([text,cat]) =&gt; ({id:uid(),text,cat,done:false}));
+      }
+
+      function ensureDay(key) {
+        state.daily[key] ||= {main:&#x27;&#x27;,note:&#x27;&#x27;,tasks:defaultDaily(parseDate(key))};
+        return state.daily[key];
+      }
+      function ensureWeek(key) {
+        state.weekly[key] ||= {main:&#x27;&#x27;,tasks:defaultWeekly(parseDate(key)),metrics:{med:&#x27;&#x27;,warn:&#x27;&#x27;,strength:&#x27;&#x27;,cardio:&#x27;&#x27;,ielts:&#x27;&#x27;,gre:&#x27;&#x27;,apps:&#x27;&#x27;,paper:&#x27;&#x27;}};
+        return state.weekly[key];
+      }
+
+      function taskMarkup(t, scope) {
+        const row = document.createElement(&#x27;div&#x27;);
+        row.className = `sw-task${t.done?&#x27; is-done&#x27;:&#x27;&#x27;}`;
+        const cb = document.createElement(&#x27;input&#x27;); cb.type=&#x27;checkbox&#x27;; cb.className=&#x27;form-check-input&#x27;; cb.checked=t.done; cb.id=`${scope}-${t.id}`;
+        const label = document.createElement(&#x27;label&#x27;); label.htmlFor=cb.id; label.textContent=t.text;
+        const cat = document.createElement(&#x27;span&#x27;); cat.className=&#x27;sw-cat text-small&#x27;; cat.textContent=t.cat;
+        cb.addEventListener(&#x27;change&#x27;,()=&gt;{t.done=cb.checked;save();renderAll();});
+        row.append(cb,label,cat); return row;
+      }
+
+      function renderDayPlan(date) {
+        const plan=dayPlans[date.getDay()] || [];
+        q(&#x27;#sw-day-name&#x27;).textContent=dayNames[date.getDay()];
+        const wrap=q(&#x27;#sw-day-plan&#x27;);
+        if(!plan.length){wrap.innerHTML=&#x27;&lt;div class=&quot;sw-empty&quot;&gt;今天没有固定课程；只保留恢复、阶段主任务和必要复盘。&lt;/div&gt;&#x27;;return;}
+        wrap.replaceChildren(...plan.map(item=&gt;{
+          const row=document.createElement(&#x27;div&#x27;); row.className=&#x27;sw-plan-row&#x27;;
+          const time=document.createElement(&#x27;span&#x27;); time.className=&#x27;sw-time&#x27;; time.textContent=item.time;
+          const text=document.createElement(&#x27;span&#x27;); text.className=item.kind===&#x27;class&#x27;?&#x27;sw-class&#x27;:(item.kind===&#x27;health&#x27;?&#x27;sw-health&#x27;:&#x27;sw-study&#x27;); text.textContent=item.text;
+          const badge=document.createElement(&#x27;span&#x27;); badge.className=&#x27;viz-badge&#x27;; badge.textContent=item.cat;
+          row.append(time,text,badge); return row;
+        }));
+      }
+
+      function renderDay() {
+        const key=q(&#x27;#sw-day&#x27;).value; const date=parseDate(key); const day=ensureDay(key); const p=phase(date);
+        q(&#x27;#sw-day-phase&#x27;).textContent=p.name; q(&#x27;#sw-main-day&#x27;).value=day.main; q(&#x27;#sw-day-note&#x27;).value=day.note;
+        renderDayPlan(date);
+        const list=q(&#x27;#sw-day-tasks&#x27;); list.replaceChildren(...day.tasks.map(t=&gt;taskMarkup(t,&#x27;day&#x27;)));
+        const done=day.tasks.filter(t=&gt;t.done).length, total=day.tasks.length, pct=total?Math.round(done/total*100):0;
+        q(&#x27;#sw-today-stat&#x27;).textContent=`${done} / ${total}`; q(&#x27;#sw-day-progress-label&#x27;).textContent=`${pct}%`;
+        q(&#x27;#sw-day-progress&#x27;).setAttribute(&#x27;aria-valuenow&#x27;,pct); q(&#x27;#sw-day-progress .progress-bar&#x27;).style.width=`${pct}%`;
+      }
+
+      function weekAssessment(w, date) {
+        const m=w.metrics; const filled=Object.values(m).some(v=&gt;v!==&#x27;&#x27; &amp;&amp; v!==null);
+        if(!filled) return {text:&#x27;待填写&#x27;,cls:&#x27;&#x27;};
+        const cap=iso(date)&lt;&#x27;2026-10-25&#x27;?2:(iso(date)&lt;&#x27;2026-12-01&#x27;?4:0);
+        const risks=[];
+        if(m.med===&#x27;no&#x27;) risks.push(&#x27;治疗/用药未按计划&#x27;);
+        if(m.strength!==&#x27;&#x27; &amp;&amp; +m.strength&lt;3) risks.push(&#x27;无氧不足3次&#x27;);
+        if(m.cardio!==&#x27;&#x27; &amp;&amp; +m.cardio&lt;4) risks.push(&#x27;有氧不足4次&#x27;);
+        if(+m.warn&gt;=2) risks.push(&#x27;课程预警≥2&#x27;);
+        if(m.paper!==&#x27;&#x27; &amp;&amp; +m.paper&gt;cap) risks.push(`论文超过${cap}小时上限`);
+        return risks.length?{text:`需调整：${risks.join(&#x27;；&#x27;)}。依次削减论文、非紧急求职、GRE。`,cls:&#x27;is-risk&#x27;}:{text:&#x27;正常：保持当前节奏，不额外加码。&#x27;,cls:&#x27;is-ok&#x27;};
+      }
+
+      function renderWeek() {
+        const key=q(&#x27;#sw-week&#x27;).value; const w=ensureWeek(key); const d=parseDate(key), p=phase(d);
+        q(&#x27;#sw-week-phase&#x27;).textContent=p.name; q(&#x27;#sw-main-week&#x27;).value=w.main;
+        q(&#x27;#sw-week-tasks&#x27;).replaceChildren(...w.tasks.map(t=&gt;taskMarkup(t,&#x27;week&#x27;)));
+        Object.entries({med:&#x27;m-med&#x27;,warn:&#x27;m-warn&#x27;,strength:&#x27;m-strength&#x27;,cardio:&#x27;m-cardio&#x27;,ielts:&#x27;m-ielts&#x27;,gre:&#x27;m-gre&#x27;,apps:&#x27;m-apps&#x27;,paper:&#x27;m-paper&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).value=w.metrics[k]);
+        const done=w.tasks.filter(t=&gt;t.done).length, pct=w.tasks.length?Math.round(done/w.tasks.length*100):0;
+        q(&#x27;#sw-week-stat&#x27;).textContent=`${pct}%`;
+        const a=weekAssessment(w,d); q(&#x27;#sw-risk-stat&#x27;).textContent=a.text.startsWith(&#x27;需调整&#x27;)?&#x27;需调整&#x27;:a.text.split(&#x27;：&#x27;)[0];
+        q(&#x27;#sw-week-alert&#x27;).textContent=a.text; q(&#x27;#sw-week-alert&#x27;).className=`sw-alert ${a.cls}`;
+        const future=milestones.filter(x=&gt;x[0]&gt;=key).slice(0,5);
+        const wrap=q(&#x27;#sw-milestones&#x27;);
+        if(!future.length){wrap.innerHTML=&#x27;&lt;div class=&quot;sw-empty&quot;&gt;当前计划内没有后续节点&lt;/div&gt;&#x27;;}
+        else { wrap.replaceChildren(...future.map(([date,text,cat])=&gt;{const r=document.createElement(&#x27;div&#x27;);r.className=&#x27;sw-milestone&#x27;;r.innerHTML=`&lt;span class=&quot;text-nowrap&quot;&gt;${date}&lt;/span&gt;&lt;span&gt;${text}&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;${cat}&lt;/span&gt;`;return r;})); }
+      }
+
+      function renderCourses() {
+        const body=q(&#x27;#sw-course-body&#x27;); body.replaceChildren();
+        courses.forEach((c,i)=&gt;{
+          const saved=state.courses[i] ||= {strategy:c.strategy,target:&#x27;待评估&#x27;,result:&#x27;&#x27;};
+          const tr=document.createElement(&#x27;tr&#x27;);
+          const risk=c.type===&#x27;数学风险&#x27;?&#x27; class=&quot;sw-course-risk&quot;&#x27;:&#x27;&#x27;;
+          tr.innerHTML=`&lt;td&gt;${c.name}&lt;/td&gt;&lt;td${risk}&gt;${c.type}&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-strategy=&quot;${i}&quot;&gt;&lt;option&gt;冲A候选&lt;/option&gt;&lt;option&gt;守A-&lt;/option&gt;&lt;option&gt;冲A/A-，底线B+&lt;/option&gt;&lt;option&gt;风险观察&lt;/option&gt;&lt;option&gt;待评估&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-target=&quot;${i}&quot;&gt;&lt;option&gt;待评估&lt;/option&gt;&lt;option&gt;A&lt;/option&gt;&lt;option&gt;A-&lt;/option&gt;&lt;option&gt;B+&lt;/option&gt;&lt;option&gt;B&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-result=&quot;${i}&quot;&gt;&lt;option value=&quot;&quot;&gt;待考核&lt;/option&gt;&lt;option&gt;A&lt;/option&gt;&lt;option&gt;A-&lt;/option&gt;&lt;option&gt;B+&lt;/option&gt;&lt;option&gt;B&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;`;
+          body.append(tr); tr.querySelector(`[data-c-strategy=&quot;${i}&quot;]`).value=saved.strategy; tr.querySelector(`[data-c-target=&quot;${i}&quot;]`).value=saved.target; tr.querySelector(`[data-c-result=&quot;${i}&quot;]`).value=saved.result;
+        });
+        qa(&#x27;[data-c-strategy]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cStrategy].strategy=el.value;save();});
+        qa(&#x27;[data-c-target]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cTarget].target=el.value;save();renderCourses();});
+        qa(&#x27;[data-c-result]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cResult].result=el.value;save();});
+        const targets=Object.values(state.courses).map(x=&gt;x.target);
+        if(targets.length===7 &amp;&amp; targets.every(x=&gt;gradePoints[x])) {
+          const term=targets.reduce((s,x)=&gt;s+gradePoints[x],0)/7;
+          const cumulative=(3.56*65+term*21)/86;
+          q(&#x27;#sw-projected-gpa&#x27;).textContent=cumulative.toFixed(3);
+        } else q(&#x27;#sw-projected-gpa&#x27;).textContent=&#x27;待评估&#x27;;
+      }
+
+      function renderSchedule() {
+        const body=q(&#x27;#sw-schedule-body&#x27;); body.replaceChildren();
+        [1,2,3,4,5,6,0].forEach(day=&gt;{
+          const plan=dayPlans[day] || [], classes=plan.filter(x=&gt;x.kind===&#x27;class&#x27;), study=plan.filter(x=&gt;x.kind===&#x27;study&#x27;), healthItems=plan.filter(x=&gt;x.kind===&#x27;health&#x27;);
+          const tr=document.createElement(&#x27;tr&#x27;);
+          const makeCell=(title,items)=&gt;{
+            const td=document.createElement(&#x27;td&#x27;), box=document.createElement(&#x27;div&#x27;); box.className=&#x27;sw-day-cell&#x27;;
+            if(title){const strong=document.createElement(&#x27;strong&#x27;);strong.textContent=title;box.append(strong);}
+            if(!items.length){const muted=document.createElement(&#x27;span&#x27;);muted.className=&#x27;text-muted&#x27;;muted.textContent=&#x27;—&#x27;;box.append(muted);}
+            items.forEach(x=&gt;{const line=document.createElement(&#x27;span&#x27;);line.textContent=`${x.time} ${x.text}`;box.append(line);});
+            td.append(box);return td;
+          };
+          tr.append(makeCell(dayNames[day],[]),makeCell(&#x27;&#x27;,classes),makeCell(&#x27;&#x27;,study),makeCell(&#x27;&#x27;,healthItems)); body.append(tr);
+        });
+      }
+
+      function renderAll(){renderDay();renderWeek();renderCourses();renderSchedule();const p=phase(parseDate(q(&#x27;#sw-day&#x27;).value));q(&#x27;#sw-phase-line&#x27;).textContent=`${p.name} · ${p.focus}`;}
+
+      qa(&#x27;[data-tab]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{
+        qa(&#x27;[data-tab]&#x27;).forEach(b=&gt;b.classList.toggle(&#x27;btn-primary&#x27;,b===btn));
+        qa(&#x27;[data-panel]&#x27;).forEach(p=&gt;p.hidden=p.dataset.panel!==btn.dataset.tab);
+      }));
+      q(&#x27;#sw-day&#x27;).value=iso(today); q(&#x27;#sw-week&#x27;).value=iso(mondayOf(today));
+      q(&#x27;#sw-day&#x27;).addEventListener(&#x27;change&#x27;,renderAll); q(&#x27;#sw-week&#x27;).addEventListener(&#x27;change&#x27;,renderWeek);
+      q(&#x27;#sw-main-day&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{ensureDay(q(&#x27;#sw-day&#x27;).value).main=e.target.value;save();});
+      q(&#x27;#sw-day-note&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{ensureDay(q(&#x27;#sw-day&#x27;).value).note=e.target.value;save();});
+      q(&#x27;#sw-main-week&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{ensureWeek(q(&#x27;#sw-week&#x27;).value).main=e.target.value;save();});
+      q(&#x27;#sw-day-add&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{const input=q(&#x27;#sw-day-new&#x27;);if(!input.value.trim())return;ensureDay(q(&#x27;#sw-day&#x27;).value).tasks.push({id:uid(),text:input.value.trim(),cat:q(&#x27;#sw-day-cat&#x27;).value,done:false});input.value=&#x27;&#x27;;save();renderDay();});
+      q(&#x27;#sw-load-day&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{const d=ensureDay(q(&#x27;#sw-day&#x27;).value), defaults=defaultDaily(parseDate(q(&#x27;#sw-day&#x27;).value));const existing=new Set(d.tasks.map(t=&gt;t.text));defaults.filter(t=&gt;!existing.has(t.text)).forEach(t=&gt;d.tasks.push(t));save();renderDay();});
+      q(&#x27;#sw-week-add&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{const input=q(&#x27;#sw-week-new&#x27;);if(!input.value.trim())return;ensureWeek(q(&#x27;#sw-week&#x27;).value).tasks.push({id:uid(),text:input.value.trim(),cat:q(&#x27;#sw-week-cat&#x27;).value,done:false});input.value=&#x27;&#x27;;save();renderWeek();});
+      q(&#x27;#sw-load-week&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{const w=ensureWeek(q(&#x27;#sw-week&#x27;).value), defaults=defaultWeekly(parseDate(q(&#x27;#sw-week&#x27;).value));const existing=new Set(w.tasks.map(t=&gt;t.text));defaults.filter(t=&gt;!existing.has(t.text)).forEach(t=&gt;w.tasks.push(t));save();renderWeek();});
+      q(&#x27;#sw-export&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{
+        const blob=new Blob([JSON.stringify(state,null,2)],{type:&#x27;application/json&#x27;}), link=document.createElement(&#x27;a&#x27;);
+        link.href=URL.createObjectURL(blob); link.download=`semester-workbench-backup-${iso(new Date())}.json`; link.click(); URL.revokeObjectURL(link.href);
+        q(&#x27;#sw-backup-status&#x27;).textContent=&#x27;备份已导出；可在另一台电脑打开工作台后导入。&#x27;;
+      });
+      q(&#x27;#sw-import&#x27;).addEventListener(&#x27;change&#x27;,async e=&gt;{
+        const file=e.target.files &amp;&amp; e.target.files[0]; if(!file)return;
+        try {
+          const imported=JSON.parse(await file.text());
+          if(!imported || typeof imported!==&#x27;object&#x27;) throw new Error(&#x27;invalid&#x27;);
+          state={daily:imported.daily||{},weekly:imported.weekly||{},courses:imported.courses||{}}; save(); renderAll();
+          q(&#x27;#sw-backup-status&#x27;).textContent=&#x27;备份已导入。&#x27;;
+        } catch (_) { q(&#x27;#sw-backup-status&#x27;).textContent=&#x27;无法读取该备份文件。&#x27;; }
+        e.target.value=&#x27;&#x27;;
+      });
+      Object.entries({med:&#x27;m-med&#x27;,warn:&#x27;m-warn&#x27;,strength:&#x27;m-strength&#x27;,cardio:&#x27;m-cardio&#x27;,ielts:&#x27;m-ielts&#x27;,gre:&#x27;m-gre&#x27;,apps:&#x27;m-apps&#x27;,paper:&#x27;m-paper&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).addEventListener(&#x27;input&#x27;,e=&gt;{ensureWeek(q(&#x27;#sw-week&#x27;).value).metrics[k]=e.target.value;save();renderWeek();}));
+      renderAll();
+    })();
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>
