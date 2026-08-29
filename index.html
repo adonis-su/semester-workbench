@@ -907,7 +907,43 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;body&gt;
 &lt;div id=&quot;semester-workbench-2026&quot;&gt;
   &lt;style&gt;
-    #semester-workbench-2026 { color: var(--foreground); font-family: inherit; }
+    #semester-workbench-2026 {
+      color-scheme: light dark;
+      --background: light-dark(#f3efe6, #14211f);
+      --foreground: light-dark(#172a28, #eee9de);
+      --card: light-dark(#fbf8f1, #1b2b28);
+      --card-foreground: light-dark(#172a28, #eee9de);
+      --popover: light-dark(#fbf8f1, #1b2b28);
+      --popover-foreground: light-dark(#172a28, #eee9de);
+      --primary: light-dark(#17302e, #b9e5d2);
+      --primary-foreground: light-dark(#f8f4eb, #14211f);
+      --secondary: light-dark(#e8e2d7, #263733);
+      --secondary-foreground: light-dark(#213735, #eee9de);
+      --muted: light-dark(#e5e0d6, #263733);
+      --muted-foreground: light-dark(#667572, #aebbb5);
+      --accent: light-dark(#b8e3d2, #315c50);
+      --accent-foreground: light-dark(#17302e, #f2eee4);
+      --destructive: light-dark(#c75f45, #f1a18b);
+      --border: light-dark(#d5cec1, #3b4b46);
+      --input: light-dark(#d5cec1, #3b4b46);
+      --ring: light-dark(#2a9273, #8ed7bb);
+      --blue: light-dark(#477978, #96c9c5);
+      --orange: light-dark(#c96f4d, #efac90);
+      --green: light-dark(#278d6f, #83d0b3);
+      --red: light-dark(#c75f45, #f1a18b);
+      --purple: light-dark(#7a6f86, #b9adc5);
+      --yellow: light-dark(#a98a42, #d7bd78);
+      --viz-series-1: light-dark(#278d6f, #83d0b3);
+      --viz-series-2: light-dark(#17302e, #b9e5d2);
+      --viz-series-3: light-dark(#c96f4d, #efac90);
+      --viz-series-4: light-dark(#477978, #96c9c5);
+      --viz-series-5: light-dark(#7a6f86, #b9adc5);
+      --viz-series-6: light-dark(#a98a42, #d7bd78);
+      color: var(--foreground);
+      background: var(--background);
+      font-family: inherit;
+      padding: 18px;
+    }
     #semester-workbench-2026 * { box-sizing: border-box; }
     #semester-workbench-2026 .sw-shell { display: grid; gap: 16px; }
     #semester-workbench-2026 .sw-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -917,6 +953,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     #semester-workbench-2026 .sw-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
     #semester-workbench-2026 .sw-stat-label { color: var(--muted-foreground); }
     #semester-workbench-2026 .sw-stat-value { margin-top: 5px; font-weight: 500; }
+    #semester-workbench-2026 .sw-shell &gt; .sw-stats &gt; .card:first-child { background: light-dark(#17302e, #203532); color: light-dark(#f8f4eb, #f3eee3); }
+    #semester-workbench-2026 .sw-shell &gt; .sw-stats &gt; .card:first-child .sw-stat-label { color: light-dark(#b8e3d2, #a8d7c5); }
+    #semester-workbench-2026 .sw-shell &gt; .sw-stats &gt; .card:nth-child(2) { background: light-dark(#b8e3d2, #315c50); color: light-dark(#17302e, #f3eee3); }
+    #semester-workbench-2026 .sw-shell &gt; .sw-stats &gt; .card:nth-child(2) .sw-stat-label { color: light-dark(#4f7169, #c4ddd3); }
+    #semester-workbench-2026 .sw-shell &gt; .sw-stats &gt; .card:nth-child(3) { background: light-dark(#f7dfd5, #51352f); color: light-dark(#713c2d, #f5e7e0); }
+    #semester-workbench-2026 .sw-shell &gt; .sw-stats &gt; .card:nth-child(3) .sw-stat-label { color: light-dark(#98624f, #e2b9aa); }
     #semester-workbench-2026 .sw-panel { display: grid; gap: 14px; }
     #semester-workbench-2026 .sw-panel[hidden] { display: none; }
     #semester-workbench-2026 .sw-controls { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
