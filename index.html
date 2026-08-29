@@ -9,7 +9,7 @@
 <style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
 </head>
 <body>
-<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Semester Workbench" srcdoc="&lt;!doctype html&gt;
+<iframe sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer" title="Semester Workbench" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;utf-8&quot;&gt;
@@ -1237,7 +1237,10 @@ html&gt;body{padding:0}&lt;/style&gt;
       const today = new Date();
       const mondayOf = d =&gt; { const x = new Date(d); const day = x.getDay() || 7; x.setDate(x.getDate() - day + 1); return x; };
       const uid = () =&gt; `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-      const save = () =&gt; localStorage.setItem(storageKey, JSON.stringify(state));
+      const save = () =&gt; {
+        try { localStorage.setItem(storageKey, JSON.stringify(state)); }
+        catch (_) { /* Keep interactions usable even when browser storage is unavailable. */ }
+      };
 
       function phase(date) {
         const x = iso(date);
