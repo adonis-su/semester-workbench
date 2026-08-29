@@ -997,6 +997,14 @@ html&gt;body{padding:0}&lt;/style&gt;
     #semester-workbench-2026 .sw-schedule-table { min-width: 860px; }
     #semester-workbench-2026 .sw-day-cell { display: grid; gap: 5px; }
     #semester-workbench-2026 .sw-day-cell strong { font-weight: 500; }
+    #semester-workbench-2026 .sw-form-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+    #semester-workbench-2026 .sw-split { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; align-items: start; }
+    #semester-workbench-2026 .sw-stack { display: grid; gap: 10px; }
+    #semester-workbench-2026 .sw-wide-table { min-width: 1080px; }
+    #semester-workbench-2026 .sw-medium-table { min-width: 880px; }
+    #semester-workbench-2026 .sw-status-risk { color: var(--destructive); }
+    #semester-workbench-2026 .sw-status-ok { color: var(--green); }
+    #semester-workbench-2026 .sw-inline-result { color: var(--muted-foreground); padding-top: 6px; }
     #semester-workbench-2026 textarea { resize: vertical; }
     @media (max-width: 680px) {
       #semester-workbench-2026 .sw-stats, #semester-workbench-2026 .sw-two { grid-template-columns: 1fr; }
@@ -1006,6 +1014,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       #semester-workbench-2026 .sw-milestone .viz-badge { grid-column: 2; justify-self: start; }
       #semester-workbench-2026 .sw-plan-row { grid-template-columns: 88px 1fr; }
       #semester-workbench-2026 .sw-plan-row .viz-badge { grid-column: 2; justify-self: start; }
+      #semester-workbench-2026 .sw-form-grid, #semester-workbench-2026 .sw-split { grid-template-columns: 1fr; }
     }
   &lt;/style&gt;
 
@@ -1018,7 +1027,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;nav class=&quot;sw-nav&quot; aria-label=&quot;工作台视图&quot;&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-tab=&quot;today&quot;&gt;今日&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;week&quot;&gt;本周&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;milestones&quot;&gt;里程碑&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;courses&quot;&gt;课程与GPA&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;exams&quot;&gt;考试&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;career&quot;&gt;实习与论文&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;health&quot;&gt;健康&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-tab=&quot;schedule&quot;&gt;课表排程&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; id=&quot;sw-export&quot;&gt;导出备份&lt;/button&gt;
         &lt;label class=&quot;btn btn-ghost&quot; for=&quot;sw-import&quot;&gt;导入备份&lt;/label&gt;
@@ -1083,9 +1096,13 @@ html&gt;body{padding:0}&lt;/style&gt;
             &lt;label class=&quot;sw-metric form-label&quot;&gt;IELTS小时&lt;input id=&quot;m-ielts&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;sw-metric form-label&quot;&gt;GRE小时&lt;input id=&quot;m-gre&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;sw-metric form-label&quot;&gt;投递数&lt;input id=&quot;m-apps&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;SQL/案例小时&lt;input id=&quot;m-sql&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;sw-metric form-label&quot;&gt;论文小时&lt;input id=&quot;m-paper&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;旧项目小时&lt;input id=&quot;m-old&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;sw-metric form-label&quot;&gt;平均睡眠小时&lt;input id=&quot;m-sleep&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;24&quot; step=&quot;0.1&quot;&gt;&lt;/label&gt;
           &lt;/div&gt;
           &lt;div id=&quot;sw-week-alert&quot; class=&quot;sw-alert&quot; aria-live=&quot;polite&quot;&gt;填写后生成减负判断&lt;/div&gt;
+          &lt;label class=&quot;sw-metric form-label&quot;&gt;下周调整&lt;textarea id=&quot;m-next&quot; class=&quot;form-control&quot; rows=&quot;2&quot; placeholder=&quot;不补欠账，只写要删减或改变的一件事&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;card&quot;&gt;
@@ -1094,12 +1111,24 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/section&gt;
 
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;milestones&quot; hidden&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;阶段里程碑与任务&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;只追踪会改变结果的动作&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-wide-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;开始&lt;/th&gt;&lt;th&gt;截止&lt;/th&gt;&lt;th&gt;阶段&lt;/th&gt;&lt;th&gt;任务&lt;/th&gt;&lt;th&gt;主线&lt;/th&gt;&lt;th&gt;状态&lt;/th&gt;&lt;th&gt;完成证据&lt;/th&gt;&lt;th&gt;备注/调整&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-milestone-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
     &lt;section class=&quot;sw-panel&quot; data-panel=&quot;courses&quot; hidden&gt;
       &lt;div class=&quot;card&quot;&gt;
         &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;七门课程&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;目标学期GPA ≥ 3.724&lt;/span&gt;&lt;/div&gt;
         &lt;div class=&quot;sw-table-wrap&quot;&gt;
           &lt;table class=&quot;table table-sm sw-table&quot;&gt;
-            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;课程&lt;/th&gt;&lt;th&gt;类型&lt;/th&gt;&lt;th&gt;策略&lt;/th&gt;&lt;th&gt;目标等级&lt;/th&gt;&lt;th&gt;首次重要结果&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;课程&lt;/th&gt;&lt;th&gt;类型&lt;/th&gt;&lt;th&gt;考核构成/首次日期&lt;/th&gt;&lt;th&gt;当前排名%&lt;/th&gt;&lt;th&gt;策略&lt;/th&gt;&lt;th&gt;目标等级&lt;/th&gt;&lt;th&gt;首次重要结果&lt;/th&gt;&lt;th&gt;状态&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
             &lt;tbody id=&quot;sw-course-body&quot;&gt;&lt;/tbody&gt;
           &lt;/table&gt;
         &lt;/div&gt;
@@ -1119,8 +1148,115 @@ html&gt;body{padding:0}&lt;/style&gt;
               &lt;tr&gt;&lt;td&gt;4A + 1A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.757&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.608&lt;/td&gt;&lt;td&gt;最低可行补偿&lt;/td&gt;&lt;/tr&gt;
               &lt;tr&gt;&lt;td&gt;3A + 2A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.714&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.598&lt;/td&gt;&lt;td class=&quot;text-destructive&quot;&gt;接近但不足&lt;/td&gt;&lt;/tr&gt;
               &lt;tr&gt;&lt;td&gt;2A + 3A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.671&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.587&lt;/td&gt;&lt;td class=&quot;text-destructive&quot;&gt;无法补足&lt;/td&gt;&lt;/tr&gt;
+              &lt;tr&gt;&lt;td&gt;1A + 4A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.629&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.577&lt;/td&gt;&lt;td class=&quot;text-destructive&quot;&gt;无法补足&lt;/td&gt;&lt;/tr&gt;
+              &lt;tr&gt;&lt;td&gt;5A−&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.586&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;3.566&lt;/td&gt;&lt;td class=&quot;text-destructive&quot;&gt;无法补足&lt;/td&gt;&lt;/tr&gt;
             &lt;/tbody&gt;
           &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;exams&quot; hidden&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;IELTS检查点&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;7.5满意 · 8.0冲刺&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-form-grid&quot;&gt;
+          &lt;label class=&quot;form-label&quot;&gt;计划考试日期&lt;input id=&quot;ielts-date&quot; class=&quot;form-control&quot; type=&quot;date&quot;&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;每周投入&lt;input id=&quot;ielts-hours&quot; class=&quot;form-control&quot; type=&quot;text&quot; value=&quot;8–10小时&quot; readonly&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;8分关键条件&lt;input class=&quot;form-control&quot; type=&quot;text&quot; value=&quot;口写均7时，听读合计≥17&quot; readonly&gt;&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-medium-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;模考日期&lt;/th&gt;&lt;th&gt;听力&lt;/th&gt;&lt;th&gt;阅读&lt;/th&gt;&lt;th&gt;写作&lt;/th&gt;&lt;th&gt;口语&lt;/th&gt;&lt;th&gt;总分&lt;/th&gt;&lt;th&gt;听读合计&lt;/th&gt;&lt;th&gt;判断&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-ielts-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;GRE诊断与首考决策&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;目标325+&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-form-grid&quot;&gt;
+          &lt;label class=&quot;form-label&quot;&gt;诊断计划日期&lt;input id=&quot;gre-date&quot; class=&quot;form-control&quot; type=&quot;date&quot;&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;Verbal诊断&lt;input id=&quot;gre-v&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;130&quot; max=&quot;170&quot;&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;Quant诊断&lt;input id=&quot;gre-q&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;130&quot; max=&quot;170&quot;&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;AWA诊断&lt;input id=&quot;gre-awa&quot; class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;6&quot; step=&quot;0.5&quot;&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;V+Q总分&lt;input id=&quot;gre-total&quot; class=&quot;form-control&quot; type=&quot;text&quot; readonly&gt;&lt;/label&gt;
+          &lt;label class=&quot;form-label&quot;&gt;建议首考窗口&lt;input id=&quot;gre-window&quot; class=&quot;form-control&quot; type=&quot;text&quot; readonly&gt;&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;sw-inline-result&quot;&gt;诊断≥315：1月底至2月初；310–314：2月底；低于310：延至春季。&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-medium-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;GRE模考日期&lt;/th&gt;&lt;th&gt;Verbal&lt;/th&gt;&lt;th&gt;Quant&lt;/th&gt;&lt;th&gt;AWA&lt;/th&gt;&lt;th&gt;V+Q&lt;/th&gt;&lt;th&gt;是否接近325&lt;/th&gt;&lt;th&gt;复盘重点&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-gre-mock-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;career&quot; hidden&gt;
+      &lt;div class=&quot;sw-split&quot;&gt;
+        &lt;div class=&quot;card&quot;&gt;
+          &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;试点项目简历素材卡&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;方案负责人&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-stack&quot;&gt;
+            &lt;label class=&quot;form-label&quot;&gt;业务问题&lt;textarea id=&quot;career-problem&quot; class=&quot;form-control&quot; rows=&quot;2&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;个人动作&lt;textarea id=&quot;career-action&quot; class=&quot;form-control&quot; rows=&quot;2&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;试点范围/样本&lt;textarea id=&quot;career-scope&quot; class=&quot;form-control&quot; rows=&quot;2&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;量化结果&lt;textarea id=&quot;career-result&quot; class=&quot;form-control&quot; rows=&quot;2&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;正式交付参与&lt;textarea id=&quot;career-delivery&quot; class=&quot;form-control&quot; rows=&quot;2&quot; placeholder=&quot;需求评审、口径说明、验收等实际参与&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;card&quot;&gt;
+          &lt;h2&gt;求职原则&lt;/h2&gt;
+          &lt;div class=&quot;sw-plan-list&quot;&gt;
+            &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;时长&lt;/span&gt;&lt;span&gt;只承诺真实的连续3个月，不虚报6个月。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;边界&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;11月起&lt;/span&gt;&lt;span&gt;每周投递5–8个匹配岗位。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;投递&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;每周&lt;/span&gt;&lt;span&gt;SQL 3小时、业务案例2小时、行为面试1小时。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;技能&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;实习投递记录&lt;/h2&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;sw-add-app&quot;&gt;添加一条&lt;/button&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-wide-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;公司&lt;/th&gt;&lt;th&gt;岗位&lt;/th&gt;&lt;th&gt;要求时长&lt;/th&gt;&lt;th&gt;接受3个月&lt;/th&gt;&lt;th&gt;投递日期&lt;/th&gt;&lt;th&gt;状态&lt;/th&gt;&lt;th&gt;面试日期&lt;/th&gt;&lt;th&gt;匹配度1–5&lt;/th&gt;&lt;th&gt;下一步&lt;/th&gt;&lt;th&gt;备注&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-app-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;论文第三轮问题清单&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;IELTS前≤2h/周 · 之后≤4h/周&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-medium-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;问题/任务&lt;/th&gt;&lt;th&gt;负责人&lt;/th&gt;&lt;th&gt;截止日期&lt;/th&gt;&lt;th&gt;状态&lt;/th&gt;&lt;th&gt;阻塞投稿&lt;/th&gt;&lt;th&gt;解决证据&lt;/th&gt;&lt;th&gt;备注&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-paper-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;sw-panel&quot; data-panel=&quot;health&quot; hidden&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;月度医疗安排&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;日期未知就留空&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-medium-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;月份&lt;/th&gt;&lt;th&gt;事项&lt;/th&gt;&lt;th&gt;计划日期&lt;/th&gt;&lt;th&gt;状态&lt;/th&gt;&lt;th&gt;实际日期&lt;/th&gt;&lt;th&gt;医生/备注&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-health-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;sw-section-head&quot;&gt;&lt;h2&gt;用药与异常记录&lt;/h2&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;sw-add-health-log&quot;&gt;添加一条&lt;/button&gt;&lt;/div&gt;
+        &lt;div class=&quot;sw-table-wrap&quot;&gt;
+          &lt;table class=&quot;table table-sm sw-medium-table&quot;&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;日期&lt;/th&gt;&lt;th&gt;按处方用药&lt;/th&gt;&lt;th&gt;是否出现异常&lt;/th&gt;&lt;th&gt;已联系医生&lt;/th&gt;&lt;th&gt;处理结果&lt;/th&gt;&lt;th&gt;备注&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody id=&quot;sw-health-log-body&quot;&gt;&lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;
+        &lt;h2&gt;训练与健康停止规则&lt;/h2&gt;
+        &lt;div class=&quot;sw-plan-list&quot;&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;每周&lt;/span&gt;&lt;span&gt;3次无氧 + 4次≥30分钟有氧，仅在医生允许且恢复良好时执行。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;训练&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;出现异常&lt;/span&gt;&lt;span&gt;暂停论文、GRE和非紧急求职，不从睡眠、治疗或饮食管理中补时间。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;停止&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;sw-plan-row&quot;&gt;&lt;span class=&quot;sw-time&quot;&gt;记录边界&lt;/span&gt;&lt;span&gt;工作台不判断化验指标是否正常，结果由医生解释。&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;医疗&lt;/span&gt;&lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/section&gt;
@@ -1153,20 +1289,54 @@ html&gt;body{padding:0}&lt;/style&gt;
       const storageKey = &#x27;semester-workbench-2026-v1&#x27;;
       const gradePoints = {&#x27;A&#x27;:4,&#x27;A-&#x27;:3.7,&#x27;B+&#x27;:3.3,&#x27;B&#x27;:3};
       const courses = [
-        {name:&#x27;Applied Econometrics&#x27;, type:&#x27;数学风险&#x27;, strategy:&#x27;冲A/A-，底线B+&#x27;},
-        {name:&#x27;Business Research Methods&#x27;, type:&#x27;研究方法&#x27;, strategy:&#x27;待评估&#x27;},
-        {name:&#x27;Commercial Translation&#x27;, type:&#x27;语言/翻译&#x27;, strategy:&#x27;待评估&#x27;},
-        {name:&#x27;Financial Mathematics&#x27;, type:&#x27;数学风险&#x27;, strategy:&#x27;冲A/A-，底线B+&#x27;},
-        {name:&#x27;Japanese II&#x27;, type:&#x27;语言&#x27;, strategy:&#x27;待评估&#x27;},
-        {name:&#x27;Management Information Systems&#x27;, type:&#x27;商科/信息系统&#x27;, strategy:&#x27;待评估&#x27;},
-        {name:&#x27;Service Leadership&#x27;, type:&#x27;管理/写作&#x27;, strategy:&#x27;待评估&#x27;}
+        {name:&#x27;Applied Econometrics&#x27;, type:&#x27;数学风险&#x27;, strategy:&#x27;冲A/A-，底线B+&#x27;, status:&#x27;预警&#x27;},
+        {name:&#x27;Business Research Methods&#x27;, type:&#x27;研究方法&#x27;, strategy:&#x27;待评估&#x27;, status:&#x27;待首轮考核&#x27;},
+        {name:&#x27;Commercial Translation&#x27;, type:&#x27;语言/翻译&#x27;, strategy:&#x27;待评估&#x27;, status:&#x27;待首轮考核&#x27;},
+        {name:&#x27;Financial Mathematics&#x27;, type:&#x27;数学风险&#x27;, strategy:&#x27;冲A/A-，底线B+&#x27;, status:&#x27;待首轮考核&#x27;},
+        {name:&#x27;Japanese II&#x27;, type:&#x27;语言&#x27;, strategy:&#x27;待评估&#x27;, status:&#x27;待首轮考核&#x27;},
+        {name:&#x27;Management Information Systems&#x27;, type:&#x27;商科/信息系统&#x27;, strategy:&#x27;待评估&#x27;, status:&#x27;待首轮考核&#x27;},
+        {name:&#x27;Service Leadership&#x27;, type:&#x27;管理/写作&#x27;, strategy:&#x27;待评估&#x27;, status:&#x27;待首轮考核&#x27;}
       ];
       const milestones = [
-        [&#x27;2026-09-03&#x27;,&#x27;确认国赛论文总整合者&#x27;,&#x27;国赛&#x27;],[&#x27;2026-09-10&#x27;,&#x27;数学建模国赛开始&#x27;,&#x27;国赛&#x27;],
-        [&#x27;2026-09-20&#x27;,&#x27;按首次考核选择2门冲A候选&#x27;,&#x27;GPA&#x27;],[&#x27;2026-10-24&#x27;,&#x27;IELTS计划场次&#x27;,&#x27;IELTS&#x27;],
-        [&#x27;2026-10-31&#x27;,&#x27;完成GRE官方限时诊断&#x27;,&#x27;GRE&#x27;],[&#x27;2026-11-30&#x27;,&#x27;论文投稿目标&#x27;,&#x27;论文&#x27;],
-        [&#x27;2026-12-01&#x27;,&#x27;进入期末模式&#x27;,&#x27;GPA&#x27;],[&#x27;2027-02-28&#x27;,&#x27;GRE寒假首考最晚窗口&#x27;,&#x27;GRE&#x27;]
+        {start:&#x27;2026-08-29&#x27;,end:&#x27;2026-08-31&#x27;,phase:&#x27;开学准备&#x27;,text:&#x27;把月度体检、注射与服药提醒写入个人日历&#x27;,cat:&#x27;健康&#x27;,status:&#x27;进行中&#x27;,evidence:&#x27;已确认具体日期&#x27;,note:&#x27;未知日期先留空，不猜测&#x27;},
+        {start:&#x27;2026-08-29&#x27;,end:&#x27;2026-09-02&#x27;,phase:&#x27;开学准备&#x27;,text:&#x27;报名10月下旬IELTS（优先10月24日后）&#x27;,cat:&#x27;IELTS&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;报名确认&#x27;,note:&#x27;实际日期同步到考试页&#x27;},
+        {start:&#x27;2026-09-01&#x27;,end:&#x27;2026-09-05&#x27;,phase:&#x27;开学准备&#x27;,text:&#x27;关注并完成英语四级报名&#x27;,cat:&#x27;考试&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;报名成功&#x27;,note:&#x27;雅思前不单独备考&#x27;},
+        {start:&#x27;2026-09-01&#x27;,end:&#x27;2026-09-03&#x27;,phase:&#x27;国赛准备&#x27;,text:&#x27;国赛团队确认论文总整合者和交叉检查机制&#x27;,cat:&#x27;国赛&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;团队确认&#x27;,note:&#x27;每人处理子问题但统一口径&#x27;},
+        {start:&#x27;2026-09-01&#x27;,end:&#x27;2026-09-07&#x27;,phase:&#x27;课程准备&#x27;,text:&#x27;收集七门课考核构成、往年分布和首次考核日期&#x27;,cat:&#x27;GPA&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;课程页已补齐&#x27;,note:&#x27;先不指定A候选&#x27;},
+        {start:&#x27;2026-09-04&#x27;,end:&#x27;2026-09-07&#x27;,phase:&#x27;国赛准备&#x27;,text:&#x27;完成一次分题演练并检查模型/数据/论文接口&#x27;,cat:&#x27;国赛&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;问题清单&#x27;,note:&#x27;不追求完整重做&#x27;},
+        {start:&#x27;2026-09-08&#x27;,end:&#x27;2026-09-09&#x27;,phase:&#x27;国赛准备&#x27;,text:&#x27;确认模板、文件命名、图表与最终提交责任&#x27;,cat:&#x27;国赛&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;提交清单&#x27;,note:&#x27;保证睡眠&#x27;},
+        {start:&#x27;2026-09-10&#x27;,end:&#x27;2026-09-13&#x27;,phase:&#x27;国赛&#x27;,text:&#x27;集中完成数学建模国赛&#x27;,cat:&#x27;国赛&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;成功提交&#x27;,note:&#x27;期间暂停雅思/论文/求职&#x27;},
+        {start:&#x27;2026-09-14&#x27;,end:&#x27;2026-09-14&#x27;,phase:&#x27;双主线&#x27;,text:&#x27;恢复GPA+IELTS周节奏&#x27;,cat:&#x27;IELTS/GPA&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;本周首条复盘&#x27;,note:&#x27;不补国赛期间欠账&#x27;},
+        {start:&#x27;2026-09-14&#x27;,end:&#x27;2026-09-20&#x27;,phase:&#x27;GPA&#x27;,text:&#x27;根据课程信息初选2门冲A候选&#x27;,cat:&#x27;GPA&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;课程策略完成&#x27;,note:&#x27;首次考核后可调整&#x27;},
+        {start:&#x27;2026-09-20&#x27;,end:&#x27;2026-09-20&#x27;,phase:&#x27;IELTS&#x27;,text:&#x27;完成首套全项限时模考&#x27;,cat:&#x27;IELTS&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;记录四项分数&#x27;,note:&#x27;检查听读合计与口写稳定性&#x27;},
+        {start:&#x27;2026-09-21&#x27;,end:&#x27;2026-09-30&#x27;,phase:&#x27;实习资产&#x27;,text:&#x27;整理两个试点项目的背景、动作、指标和正式落地证据&#x27;,cat:&#x27;实习&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;项目素材卡完成&#x27;,note:&#x27;准确区分试点与开发&#x27;},
+        {start:&#x27;2026-10-01&#x27;,end:&#x27;2026-10-18&#x27;,phase:&#x27;IELTS&#x27;,text:&#x27;每周完成全项模考并复盘&#x27;,cat:&#x27;IELTS&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;至少3条模考记录&#x27;,note:&#x27;听读合计≥17、口写≥7&#x27;},
+        {start:&#x27;2026-10-01&#x27;,end:&#x27;2026-10-20&#x27;,phase:&#x27;简历&#x27;,text:&#x27;完成数据分析/运营方向简历初稿&#x27;,cat:&#x27;实习&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;一页简历初稿&#x27;,note:&#x27;试点方案负责人表述&#x27;},
+        {start:&#x27;2026-10-20&#x27;,end:&#x27;2026-10-24&#x27;,phase:&#x27;IELTS&#x27;,text:&#x27;完成考前减量与考试&#x27;,cat:&#x27;IELTS&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;完成正式考试&#x27;,note:&#x27;满意线7.5；冲刺8.0&#x27;},
+        {start:&#x27;2026-10-25&#x27;,end:&#x27;2026-10-31&#x27;,phase:&#x27;GRE&#x27;,text:&#x27;熟悉GRE题型并完成官方限时POWERPREP诊断&#x27;,cat:&#x27;GRE&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;V/Q/AWA记录&#x27;,note:&#x27;诊断后才选考试日期&#x27;},
+        {start:&#x27;2026-10-25&#x27;,end:&#x27;2026-10-31&#x27;,phase:&#x27;简历&#x27;,text:&#x27;结合试点落地结果完成简历定稿&#x27;,cat:&#x27;实习&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;定稿和项目STAR&#x27;,note:&#x27;只承诺3个月&#x27;},
+        {start:&#x27;2026-11-01&#x27;,end:&#x27;2026-11-07&#x27;,phase:&#x27;求职&#x27;,text:&#x27;启动每周5–8个匹配岗位投递&#x27;,cat:&#x27;实习&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;投递记录&#x27;,note:&#x27;硬性6个月岗位不虚报&#x27;},
+        {start:&#x27;2026-11-01&#x27;,end:&#x27;2026-11-05&#x27;,phase:&#x27;论文&#x27;,text:&#x27;确定目标期刊与投稿要求&#x27;,cat:&#x27;论文&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;期刊与清单&#x27;,note:&#x27;避免无目标反复修改&#x27;},
+        {start:&#x27;2026-11-06&#x27;,end:&#x27;2026-11-22&#x27;,phase:&#x27;论文&#x27;,text:&#x27;解决第三轮方法、结构与表达问题&#x27;,cat:&#x27;论文&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;问题清单关闭&#x27;,note:&#x27;每周最多4小时&#x27;},
+        {start:&#x27;2026-11-20&#x27;,end:&#x27;2026-11-30&#x27;,phase:&#x27;论文&#x27;,text:&#x27;完成投稿材料并提交&#x27;,cat:&#x27;论文&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;投稿回执&#x27;,note:&#x27;方法问题未解决则质量优先&#x27;},
+        {start:&#x27;2026-12-01&#x27;,end:&#x27;2026-12-01&#x27;,phase:&#x27;期末&#x27;,text:&#x27;暂停论文和非紧急投递，GRE降至每周3小时&#x27;,cat:&#x27;GPA&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;本周计划已调整&#x27;,note:&#x27;健康不降级&#x27;},
+        {start:&#x27;2026-12-01&#x27;,end:&#x27;2026-12-12&#x27;,phase:&#x27;四级&#x27;,text:&#x27;完成1–2套四级题熟悉节奏&#x27;,cat:&#x27;考试&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;错题/时间记录&#x27;,note:&#x27;不建立独立备考主线&#x27;},
+        {start:&#x27;2026-12-10&#x27;,end:&#x27;2026-12-20&#x27;,phase:&#x27;期末&#x27;,text:&#x27;完成七门课期末与四级&#x27;,cat:&#x27;GPA&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;考试完成&#x27;,note:&#x27;以学校实际日期为准&#x27;},
+        {start:&#x27;2026-12-15&#x27;,end:&#x27;2026-12-31&#x27;,phase:&#x27;实习&#x27;,text:&#x27;开始三个月全职实习&#x27;,cat:&#x27;实习&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;入职/项目目标&#x27;,note:&#x27;实际日期可修改&#x27;},
+        {start:&#x27;2027-01-01&#x27;,end:&#x27;2027-01-31&#x27;,phase:&#x27;GRE&#x27;,text:&#x27;实习期维持GRE每周8–10小时&#x27;,cat:&#x27;GRE&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;周记录&#x27;,note:&#x27;不挤睡眠和治疗&#x27;},
+        {start:&#x27;2027-01-15&#x27;,end:&#x27;2027-02-28&#x27;,phase:&#x27;GRE&#x27;,text:&#x27;连续两次模考接近325后参加首考&#x27;,cat:&#x27;GRE&#x27;,status:&#x27;未开始&#x27;,evidence:&#x27;两次模考+正式成绩&#x27;,note:&#x27;未达门槛则延至春季&#x27;}
       ];
+      const paperTasks = [
+        {text:&#x27;确定目标期刊与格式要求&#x27;,owner:&#x27;三人共同&#x27;,date:&#x27;2026-11-05&#x27;,status:&#x27;未开始&#x27;,block:&#x27;是&#x27;,evidence:&#x27;期刊链接+检查表&#x27;,note:&#x27;&#x27;},
+        {text:&#x27;解决剩余方法问题&#x27;,owner:&#x27;待分配&#x27;,date:&#x27;2026-11-15&#x27;,status:&#x27;未开始&#x27;,block:&#x27;是&#x27;,evidence:&#x27;修改说明/复核&#x27;,note:&#x27;&#x27;},
+        {text:&#x27;统一结构、图表、符号与语言&#x27;,owner:&#x27;待分配&#x27;,date:&#x27;2026-11-22&#x27;,status:&#x27;未开始&#x27;,block:&#x27;否&#x27;,evidence:&#x27;最终稿检查&#x27;,note:&#x27;&#x27;},
+        {text:&#x27;完成投稿信、作者信息与附件&#x27;,owner:&#x27;待分配&#x27;,date:&#x27;2026-11-27&#x27;,status:&#x27;未开始&#x27;,block:&#x27;是&#x27;,evidence:&#x27;投稿包&#x27;,note:&#x27;&#x27;},
+        {text:&#x27;正式投稿&#x27;,owner:&#x27;三人共同&#x27;,date:&#x27;2026-11-30&#x27;,status:&#x27;未开始&#x27;,block:&#x27;是&#x27;,evidence:&#x27;投稿回执&#x27;,note:&#x27;方法问题未解决则质量优先&#x27;}
+      ];
+      const healthRows = [&#x27;2026-09&#x27;,&#x27;2026-10&#x27;,&#x27;2026-11&#x27;,&#x27;2026-12&#x27;,&#x27;2027-01&#x27;,&#x27;2027-02&#x27;].flatMap(month=&gt;[
+        {month,item:&#x27;塞立奇注射&#x27;},{month,item:&#x27;月度体检/复诊&#x27;}
+      ]);
+      const ieltsMockDates = [&#x27;2026-09-20&#x27;,&#x27;2026-09-27&#x27;,&#x27;2026-10-04&#x27;,&#x27;2026-10-11&#x27;,&#x27;2026-10-18&#x27;,&#x27;2026-10-21&#x27;,&#x27;&#x27;,&#x27;&#x27;];
       const dayNames = [&#x27;周日&#x27;,&#x27;周一&#x27;,&#x27;周二&#x27;,&#x27;周三&#x27;,&#x27;周四&#x27;,&#x27;周五&#x27;,&#x27;周六&#x27;];
       const dayPlans = {
         1: [
@@ -1228,19 +1398,35 @@ html&gt;body{padding:0}&lt;/style&gt;
       };
       let state;
       try { state = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch (_) { state = {}; }
-      state.daily ||= {}; state.weekly ||= {}; state.courses ||= {};
+      normalizeState();
 
       const q = s =&gt; root.querySelector(s);
       const qa = s =&gt; [...root.querySelectorAll(s)];
+      const esc = value =&gt; String(value ?? &#x27;&#x27;).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g,ch=&gt;({&#x27;&amp;&#x27;:&#x27;&amp;amp;&#x27;,&#x27;&lt;&#x27;:&#x27;&amp;lt;&#x27;,&#x27;&gt;&#x27;:&#x27;&amp;gt;&#x27;,&#x27;&quot;&#x27;:&#x27;&amp;quot;&#x27;,&quot;&#x27;&quot;:&#x27;&amp;#39;&#x27;}[ch]));
       const iso = d =&gt; d.toISOString().slice(0,10);
       const parseDate = s =&gt; new Date(`${s}T12:00:00`);
       const today = new Date();
-      const mondayOf = d =&gt; { const x = new Date(d); const day = x.getDay() || 7; x.setDate(x.getDate() - day + 1); return x; };
+      const reviewWeekOf = d =&gt; { const x = new Date(d); x.setDate(x.getDate()-x.getDay()); return iso(x)&lt;&#x27;2026-08-30&#x27;?parseDate(&#x27;2026-08-30&#x27;):x; };
       const uid = () =&gt; `${Date.now()}-${Math.random().toString(16).slice(2)}`;
       const save = () =&gt; {
         try { localStorage.setItem(storageKey, JSON.stringify(state)); }
         catch (_) { /* Keep interactions usable even when browser storage is unavailable. */ }
       };
+
+      function normalizeState() {
+        state.daily ||= {}; state.weekly ||= {}; state.courses ||= {};
+        state.milestones ||= {}; state.exams ||= {}; state.career ||= {}; state.health ||= {};
+        state.exams.ielts ||= {date:&#x27;2026-10-24&#x27;,mocks:ieltsMockDates.map(date=&gt;({date,l:&#x27;&#x27;,r:&#x27;&#x27;,w:&#x27;&#x27;,s:&#x27;&#x27;}))};
+        state.exams.ielts.date ||= &#x27;2026-10-24&#x27;; state.exams.ielts.mocks ||= ieltsMockDates.map(date=&gt;({date,l:&#x27;&#x27;,r:&#x27;&#x27;,w:&#x27;&#x27;,s:&#x27;&#x27;}));
+        state.exams.gre ||= {date:&#x27;2026-10-31&#x27;,v:&#x27;&#x27;,q:&#x27;&#x27;,awa:&#x27;&#x27;};
+        state.exams.gre.date ||= &#x27;2026-10-31&#x27;;
+        state.exams.gre.mocks ||= Array.from({length:6},()=&gt;({date:&#x27;&#x27;,v:&#x27;&#x27;,q:&#x27;&#x27;,awa:&#x27;&#x27;,note:&#x27;&#x27;}));
+        state.career.project ||= {problem:&#x27;&#x27;,action:&#x27;&#x27;,scope:&#x27;&#x27;,result:&#x27;&#x27;,delivery:&#x27;&#x27;};
+        state.career.apps ||= [];
+        state.career.paper ||= paperTasks.map(item=&gt;({...item}));
+        state.health.monthly ||= healthRows.map(item=&gt;({...item,plan:&#x27;&#x27;,status:&#x27;待安排&#x27;,actual:&#x27;&#x27;,note:&#x27;&#x27;}));
+        state.health.logs ||= [];
+      }
 
       function phase(date) {
         const x = iso(date);
@@ -1287,11 +1473,14 @@ html&gt;body{padding:0}&lt;/style&gt;
       }
 
       function ensureDay(key) {
-        state.daily[key] ||= {main:&#x27;&#x27;,note:&#x27;&#x27;,tasks:defaultDaily(parseDate(key))};
+        state.daily[key] ||= {main:phase(parseDate(key)).focus,note:&#x27;&#x27;,tasks:defaultDaily(parseDate(key))};
+        if(key===&#x27;2026-08-29&#x27; &amp;&amp; !state.daily[key].main) state.daily[key].main=&#x27;国赛准备 + 课程信息收集&#x27;;
         return state.daily[key];
       }
       function ensureWeek(key) {
-        state.weekly[key] ||= {main:&#x27;&#x27;,tasks:defaultWeekly(parseDate(key)),metrics:{med:&#x27;&#x27;,warn:&#x27;&#x27;,strength:&#x27;&#x27;,cardio:&#x27;&#x27;,ielts:&#x27;&#x27;,gre:&#x27;&#x27;,apps:&#x27;&#x27;,paper:&#x27;&#x27;}};
+        state.weekly[key] ||= {main:phase(parseDate(key)).focus,tasks:defaultWeekly(parseDate(key)),metrics:{med:&#x27;&#x27;,warn:&#x27;&#x27;,strength:&#x27;&#x27;,cardio:&#x27;&#x27;,ielts:&#x27;&#x27;,gre:&#x27;&#x27;,apps:&#x27;&#x27;,sql:&#x27;&#x27;,paper:&#x27;&#x27;,old:&#x27;&#x27;,sleep:&#x27;&#x27;,next:&#x27;&#x27;}};
+        const metrics=state.weekly[key].metrics ||= {};
+        [&#x27;med&#x27;,&#x27;warn&#x27;,&#x27;strength&#x27;,&#x27;cardio&#x27;,&#x27;ielts&#x27;,&#x27;gre&#x27;,&#x27;apps&#x27;,&#x27;sql&#x27;,&#x27;paper&#x27;,&#x27;old&#x27;,&#x27;sleep&#x27;,&#x27;next&#x27;].forEach(k=&gt;metrics[k] ??= &#x27;&#x27;);
         return state.weekly[key];
       }
 
@@ -1339,6 +1528,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         if(m.cardio!==&#x27;&#x27; &amp;&amp; +m.cardio&lt;4) risks.push(&#x27;有氧不足4次&#x27;);
         if(+m.warn&gt;=2) risks.push(&#x27;课程预警≥2&#x27;);
         if(m.paper!==&#x27;&#x27; &amp;&amp; +m.paper&gt;cap) risks.push(`论文超过${cap}小时上限`);
+        if(m.old!==&#x27;&#x27; &amp;&amp; +m.old&gt;2 &amp;&amp; iso(date)&lt;&#x27;2026-10-25&#x27;) risks.push(&#x27;旧项目超过2小时上限&#x27;);
         return risks.length?{text:`需调整：${risks.join(&#x27;；&#x27;)}。依次削减论文、非紧急求职、GRE。`,cls:&#x27;is-risk&#x27;}:{text:&#x27;正常：保持当前节奏，不额外加码。&#x27;,cls:&#x27;is-ok&#x27;};
       }
 
@@ -1346,35 +1536,136 @@ html&gt;body{padding:0}&lt;/style&gt;
         const key=q(&#x27;#sw-week&#x27;).value; const w=ensureWeek(key); const d=parseDate(key), p=phase(d);
         q(&#x27;#sw-week-phase&#x27;).textContent=p.name; q(&#x27;#sw-main-week&#x27;).value=w.main;
         q(&#x27;#sw-week-tasks&#x27;).replaceChildren(...w.tasks.map(t=&gt;taskMarkup(t,&#x27;week&#x27;)));
-        Object.entries({med:&#x27;m-med&#x27;,warn:&#x27;m-warn&#x27;,strength:&#x27;m-strength&#x27;,cardio:&#x27;m-cardio&#x27;,ielts:&#x27;m-ielts&#x27;,gre:&#x27;m-gre&#x27;,apps:&#x27;m-apps&#x27;,paper:&#x27;m-paper&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).value=w.metrics[k]);
+        Object.entries({med:&#x27;m-med&#x27;,warn:&#x27;m-warn&#x27;,strength:&#x27;m-strength&#x27;,cardio:&#x27;m-cardio&#x27;,ielts:&#x27;m-ielts&#x27;,gre:&#x27;m-gre&#x27;,apps:&#x27;m-apps&#x27;,sql:&#x27;m-sql&#x27;,paper:&#x27;m-paper&#x27;,old:&#x27;m-old&#x27;,sleep:&#x27;m-sleep&#x27;,next:&#x27;m-next&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).value=w.metrics[k]);
         const done=w.tasks.filter(t=&gt;t.done).length, pct=w.tasks.length?Math.round(done/w.tasks.length*100):0;
         q(&#x27;#sw-week-stat&#x27;).textContent=`${pct}%`;
         const a=weekAssessment(w,d); q(&#x27;#sw-risk-stat&#x27;).textContent=a.text.startsWith(&#x27;需调整&#x27;)?&#x27;需调整&#x27;:a.text.split(&#x27;：&#x27;)[0];
         q(&#x27;#sw-week-alert&#x27;).textContent=a.text; q(&#x27;#sw-week-alert&#x27;).className=`sw-alert ${a.cls}`;
-        const future=milestones.filter(x=&gt;x[0]&gt;=key).slice(0,5);
+        const future=milestones.filter((x,i)=&gt;(state.milestones[i]?.status||x.status)!==&#x27;已完成&#x27; &amp;&amp; x.end&gt;=key).slice(0,5);
         const wrap=q(&#x27;#sw-milestones&#x27;);
         if(!future.length){wrap.innerHTML=&#x27;&lt;div class=&quot;sw-empty&quot;&gt;当前计划内没有后续节点&lt;/div&gt;&#x27;;}
-        else { wrap.replaceChildren(...future.map(([date,text,cat])=&gt;{const r=document.createElement(&#x27;div&#x27;);r.className=&#x27;sw-milestone&#x27;;r.innerHTML=`&lt;span class=&quot;text-nowrap&quot;&gt;${date}&lt;/span&gt;&lt;span&gt;${text}&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;${cat}&lt;/span&gt;`;return r;})); }
+        else { wrap.replaceChildren(...future.map(item=&gt;{const r=document.createElement(&#x27;div&#x27;);r.className=&#x27;sw-milestone&#x27;;r.innerHTML=`&lt;span class=&quot;text-nowrap&quot;&gt;${item.end}&lt;/span&gt;&lt;span&gt;${item.text}&lt;/span&gt;&lt;span class=&quot;viz-badge&quot;&gt;${item.cat}&lt;/span&gt;`;return r;})); }
+      }
+
+      function milestoneState(i) {
+        return state.milestones[i] ||= {status:milestones[i].status,evidence:milestones[i].evidence,note:milestones[i].note};
+      }
+
+      function renderMilestones() {
+        const body=q(&#x27;#sw-milestone-body&#x27;); body.replaceChildren();
+        milestones.forEach((item,i)=&gt;{
+          const saved=milestoneState(i), tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`&lt;td class=&quot;text-nowrap&quot;&gt;${item.start}&lt;/td&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${item.end}&lt;/td&gt;&lt;td&gt;${item.phase}&lt;/td&gt;&lt;td&gt;${item.text}&lt;/td&gt;&lt;td&gt;${item.cat}&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-ms-status=&quot;${i}&quot;&gt;&lt;option&gt;未开始&lt;/option&gt;&lt;option&gt;进行中&lt;/option&gt;&lt;option&gt;已完成&lt;/option&gt;&lt;option&gt;已调整&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-ms-evidence=&quot;${i}&quot; type=&quot;text&quot; value=&quot;${esc(saved.evidence)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-ms-note=&quot;${i}&quot; type=&quot;text&quot; value=&quot;${esc(saved.note)}&quot;&gt;&lt;/td&gt;`;
+          body.append(tr); tr.querySelector(`[data-ms-status=&quot;${i}&quot;]`).value=saved.status;
+        });
+        qa(&#x27;[data-ms-status]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{milestoneState(el.dataset.msStatus).status=el.value;save();renderWeek();});
+        qa(&#x27;[data-ms-evidence]&#x27;).forEach(el=&gt;el.oninput=()=&gt;{milestoneState(el.dataset.msEvidence).evidence=el.value;save();});
+        qa(&#x27;[data-ms-note]&#x27;).forEach(el=&gt;el.oninput=()=&gt;{milestoneState(el.dataset.msNote).note=el.value;save();});
       }
 
       function renderCourses() {
         const body=q(&#x27;#sw-course-body&#x27;); body.replaceChildren();
         courses.forEach((c,i)=&gt;{
-          const saved=state.courses[i] ||= {strategy:c.strategy,target:&#x27;待评估&#x27;,result:&#x27;&#x27;};
+          const saved=state.courses[i] ||= {assessment:&#x27;待填写&#x27;,rank:&#x27;&#x27;,strategy:c.strategy,target:&#x27;待评估&#x27;,result:&#x27;&#x27;,status:c.status};
+          saved.assessment ??= &#x27;待填写&#x27;; saved.rank ??= &#x27;&#x27;; saved.strategy ??= c.strategy; saved.target ??= &#x27;待评估&#x27;; saved.result ??= &#x27;&#x27;; saved.status ??= c.status;
           const tr=document.createElement(&#x27;tr&#x27;);
           const risk=c.type===&#x27;数学风险&#x27;?&#x27; class=&quot;sw-course-risk&quot;&#x27;:&#x27;&#x27;;
-          tr.innerHTML=`&lt;td&gt;${c.name}&lt;/td&gt;&lt;td${risk}&gt;${c.type}&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-strategy=&quot;${i}&quot;&gt;&lt;option&gt;冲A候选&lt;/option&gt;&lt;option&gt;守A-&lt;/option&gt;&lt;option&gt;冲A/A-，底线B+&lt;/option&gt;&lt;option&gt;风险观察&lt;/option&gt;&lt;option&gt;待评估&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-target=&quot;${i}&quot;&gt;&lt;option&gt;待评估&lt;/option&gt;&lt;option&gt;A&lt;/option&gt;&lt;option&gt;A-&lt;/option&gt;&lt;option&gt;B+&lt;/option&gt;&lt;option&gt;B&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-result=&quot;${i}&quot;&gt;&lt;option value=&quot;&quot;&gt;待考核&lt;/option&gt;&lt;option&gt;A&lt;/option&gt;&lt;option&gt;A-&lt;/option&gt;&lt;option&gt;B+&lt;/option&gt;&lt;option&gt;B&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;`;
-          body.append(tr); tr.querySelector(`[data-c-strategy=&quot;${i}&quot;]`).value=saved.strategy; tr.querySelector(`[data-c-target=&quot;${i}&quot;]`).value=saved.target; tr.querySelector(`[data-c-result=&quot;${i}&quot;]`).value=saved.result;
+          tr.innerHTML=`&lt;td&gt;${c.name}&lt;/td&gt;&lt;td${risk}&gt;${c.type}&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-c-assessment=&quot;${i}&quot; value=&quot;${esc(saved.assessment)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-c-rank=&quot;${i}&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;0.1&quot; value=&quot;${esc(saved.rank)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-strategy=&quot;${i}&quot;&gt;&lt;option&gt;冲A候选&lt;/option&gt;&lt;option&gt;守A-&lt;/option&gt;&lt;option&gt;冲A/A-，底线B+&lt;/option&gt;&lt;option&gt;风险观察&lt;/option&gt;&lt;option&gt;待评估&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-target=&quot;${i}&quot;&gt;&lt;option&gt;待评估&lt;/option&gt;&lt;option&gt;A&lt;/option&gt;&lt;option&gt;A-&lt;/option&gt;&lt;option&gt;B+&lt;/option&gt;&lt;option&gt;B&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-c-result=&quot;${i}&quot; value=&quot;${esc(saved.result)}&quot; placeholder=&quot;分数/排名/反馈&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-c-status=&quot;${i}&quot;&gt;&lt;option&gt;待首轮考核&lt;/option&gt;&lt;option&gt;正常&lt;/option&gt;&lt;option&gt;预警&lt;/option&gt;&lt;option&gt;已调整&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;`;
+          body.append(tr); tr.querySelector(`[data-c-strategy=&quot;${i}&quot;]`).value=saved.strategy; tr.querySelector(`[data-c-target=&quot;${i}&quot;]`).value=saved.target; tr.querySelector(`[data-c-status=&quot;${i}&quot;]`).value=saved.status;
         });
+        qa(&#x27;[data-c-assessment]&#x27;).forEach(el=&gt;el.oninput=()=&gt;{state.courses[el.dataset.cAssessment].assessment=el.value;save();});
+        qa(&#x27;[data-c-rank]&#x27;).forEach(el=&gt;el.oninput=()=&gt;{state.courses[el.dataset.cRank].rank=el.value;save();});
         qa(&#x27;[data-c-strategy]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cStrategy].strategy=el.value;save();});
         qa(&#x27;[data-c-target]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cTarget].target=el.value;save();renderCourses();});
-        qa(&#x27;[data-c-result]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cResult].result=el.value;save();});
-        const targets=Object.values(state.courses).map(x=&gt;x.target);
+        qa(&#x27;[data-c-result]&#x27;).forEach(el=&gt;el.oninput=()=&gt;{state.courses[el.dataset.cResult].result=el.value;save();});
+        qa(&#x27;[data-c-status]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{state.courses[el.dataset.cStatus].status=el.value;save();renderWeek();});
+        const targets=courses.map((_,i)=&gt;state.courses[i].target);
         if(targets.length===7 &amp;&amp; targets.every(x=&gt;gradePoints[x])) {
           const term=targets.reduce((s,x)=&gt;s+gradePoints[x],0)/7;
           const cumulative=(3.56*65+term*21)/86;
           q(&#x27;#sw-projected-gpa&#x27;).textContent=cumulative.toFixed(3);
         } else q(&#x27;#sw-projected-gpa&#x27;).textContent=&#x27;待评估&#x27;;
+      }
+
+      function ieltsSummary(mock) {
+        const values=[mock.l,mock.r,mock.w,mock.s].map(Number);
+        if(values.some((v,i)=&gt;mock[[&#x27;l&#x27;,&#x27;r&#x27;,&#x27;w&#x27;,&#x27;s&#x27;][i]]===&#x27;&#x27; || !Number.isFinite(v))) return {total:&#x27;&#x27;,lr:&#x27;&#x27;,label:&#x27;待填写&#x27;};
+        const total=Math.round((values.reduce((a,b)=&gt;a+b,0)/4)*2)/2, lr=values[0]+values[1];
+        let label=&#x27;继续训练&#x27;;
+        if(total&gt;=8 &amp;&amp; lr&gt;=17 &amp;&amp; values[2]&gt;=7 &amp;&amp; values[3]&gt;=7) label=&#x27;冲刺线达标&#x27;;
+        else if(total&gt;=7.5 &amp;&amp; values[2]&gt;=7 &amp;&amp; values[3]&gt;=7) label=&#x27;满意线达标&#x27;;
+        else if(total&gt;=6.5 &amp;&amp; values.every(v=&gt;v&gt;=6)) label=&#x27;申请底线达标&#x27;;
+        return {total:total.toFixed(1),lr:lr.toFixed(1),label};
+      }
+
+      function renderGreDecision() {
+        const gre=state.exams.gre, v=Number(gre.v), qv=Number(gre.q), complete=gre.v!==&#x27;&#x27; &amp;&amp; gre.q!==&#x27;&#x27; &amp;&amp; Number.isFinite(v) &amp;&amp; Number.isFinite(qv), total=complete?v+qv:&#x27;&#x27;;
+        q(&#x27;#gre-total&#x27;).value=total;
+        q(&#x27;#gre-window&#x27;).value=!complete?&#x27;先完成诊断&#x27;:total&gt;=315?&#x27;1月底至2月初&#x27;:total&gt;=310?&#x27;2月底&#x27;:&#x27;延至春季&#x27;;
+      }
+
+      function renderExams() {
+        const ielts=state.exams.ielts, gre=state.exams.gre;
+        q(&#x27;#ielts-date&#x27;).value=ielts.date; q(&#x27;#gre-date&#x27;).value=gre.date; q(&#x27;#gre-v&#x27;).value=gre.v; q(&#x27;#gre-q&#x27;).value=gre.q; q(&#x27;#gre-awa&#x27;).value=gre.awa;
+        const body=q(&#x27;#sw-ielts-body&#x27;); body.replaceChildren();
+        while(ielts.mocks.length&lt;8) ielts.mocks.push({date:&#x27;&#x27;,l:&#x27;&#x27;,r:&#x27;&#x27;,w:&#x27;&#x27;,s:&#x27;&#x27;});
+        ielts.mocks.slice(0,8).forEach((mock,i)=&gt;{
+          const sum=ieltsSummary(mock), tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-ielts-date=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(mock.date)}&quot;&gt;&lt;/td&gt;${[&#x27;l&#x27;,&#x27;r&#x27;,&#x27;w&#x27;,&#x27;s&#x27;].map(k=&gt;`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-ielts-score=&quot;${i}&quot; data-score-key=&quot;${k}&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;9&quot; step=&quot;0.5&quot; value=&quot;${esc(mock[k])}&quot;&gt;&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;td class=&quot;text-end&quot;&gt;${sum.total}&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;${sum.lr}&lt;/td&gt;&lt;td&gt;${sum.label}&lt;/td&gt;`;
+          body.append(tr);
+        });
+        qa(&#x27;[data-ielts-date]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{ielts.mocks[el.dataset.ieltsDate].date=el.value;save();});
+        qa(&#x27;[data-ielts-score]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{ielts.mocks[el.dataset.ieltsScore][el.dataset.scoreKey]=el.value;save();renderExams();});
+        renderGreDecision();
+        const greBody=q(&#x27;#sw-gre-mock-body&#x27;); greBody.replaceChildren();
+        while(gre.mocks.length&lt;6) gre.mocks.push({date:&#x27;&#x27;,v:&#x27;&#x27;,q:&#x27;&#x27;,awa:&#x27;&#x27;,note:&#x27;&#x27;});
+        gre.mocks.slice(0,6).forEach((mock,i)=&gt;{
+          const complete=mock.v!==&#x27;&#x27;&amp;&amp;mock.q!==&#x27;&#x27;, total=complete?Number(mock.v)+Number(mock.q):&#x27;&#x27;, close=total===&#x27;&#x27;?&#x27;待填写&#x27;:total&gt;=325?&#x27;达到/超过325&#x27;:total&gt;=320?&#x27;接近325&#x27;:&#x27;未接近&#x27;;
+          const tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-gre-mock-date=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(mock.date)}&quot;&gt;&lt;/td&gt;${[&#x27;v&#x27;,&#x27;q&#x27;,&#x27;awa&#x27;].map(k=&gt;`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-gre-mock-score=&quot;${i}&quot; data-gre-key=&quot;${k}&quot; type=&quot;number&quot; ${k===&#x27;awa&#x27;?&#x27;min=&quot;0&quot; max=&quot;6&quot; step=&quot;0.5&quot;&#x27;:&#x27;min=&quot;130&quot; max=&quot;170&quot;&#x27;} value=&quot;${esc(mock[k])}&quot;&gt;&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;td class=&quot;text-end&quot;&gt;${total}&lt;/td&gt;&lt;td&gt;${close}&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-gre-mock-note=&quot;${i}&quot; value=&quot;${esc(mock.note)}&quot;&gt;&lt;/td&gt;`;
+          greBody.append(tr);
+        });
+        qa(&#x27;[data-gre-mock-date]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{gre.mocks[el.dataset.greMockDate].date=el.value;save();});
+        qa(&#x27;[data-gre-mock-score]&#x27;).forEach(el=&gt;el.onchange=()=&gt;{gre.mocks[el.dataset.greMockScore][el.dataset.greKey]=el.value;save();renderExams();});
+        qa(&#x27;[data-gre-mock-note]&#x27;).forEach(el=&gt;el.oninput=()=&gt;{gre.mocks[el.dataset.greMockNote].note=el.value;save();});
+      }
+
+      function renderCareer() {
+        const project=state.career.project;
+        Object.entries({problem:&#x27;career-problem&#x27;,action:&#x27;career-action&#x27;,scope:&#x27;career-scope&#x27;,result:&#x27;career-result&#x27;,delivery:&#x27;career-delivery&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).value=project[k]||&#x27;&#x27;);
+        while(state.career.apps.length&lt;3) state.career.apps.push({company:&#x27;&#x27;,role:&#x27;&#x27;,duration:&#x27;&#x27;,accept:&#x27;待确认&#x27;,date:&#x27;&#x27;,status:&#x27;未投递&#x27;,interview:&#x27;&#x27;,match:&#x27;&#x27;,next:&#x27;&#x27;,note:&#x27;&#x27;});
+        const appBody=q(&#x27;#sw-app-body&#x27;); appBody.replaceChildren();
+        state.career.apps.forEach((item,i)=&gt;{
+          const tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`${[&#x27;company&#x27;,&#x27;role&#x27;,&#x27;duration&#x27;].map(k=&gt;`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-app-field=&quot;${k}&quot; data-app-index=&quot;${i}&quot; value=&quot;${esc(item[k])}&quot;&gt;&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;td&gt;&lt;select class=&quot;form-select&quot; data-app-field=&quot;accept&quot; data-app-index=&quot;${i}&quot;&gt;&lt;option&gt;待确认&lt;/option&gt;&lt;option&gt;是&lt;/option&gt;&lt;option&gt;否&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-app-field=&quot;date&quot; data-app-index=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(item.date)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-app-field=&quot;status&quot; data-app-index=&quot;${i}&quot;&gt;&lt;option&gt;未投递&lt;/option&gt;&lt;option&gt;已投递&lt;/option&gt;&lt;option&gt;笔试&lt;/option&gt;&lt;option&gt;面试&lt;/option&gt;&lt;option&gt;Offer&lt;/option&gt;&lt;option&gt;拒绝&lt;/option&gt;&lt;option&gt;暂停&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-app-field=&quot;interview&quot; data-app-index=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(item.interview)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-app-field=&quot;match&quot; data-app-index=&quot;${i}&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;5&quot; value=&quot;${esc(item.match)}&quot;&gt;&lt;/td&gt;${[&#x27;next&#x27;,&#x27;note&#x27;].map(k=&gt;`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-app-field=&quot;${k}&quot; data-app-index=&quot;${i}&quot; value=&quot;${esc(item[k])}&quot;&gt;&lt;/td&gt;`).join(&#x27;&#x27;)}`;
+          appBody.append(tr); tr.querySelector(&#x27;[data-app-field=&quot;accept&quot;]&#x27;).value=item.accept; tr.querySelector(&#x27;[data-app-field=&quot;status&quot;]&#x27;).value=item.status;
+        });
+        qa(&#x27;[data-app-field]&#x27;).forEach(el=&gt;{const event=el.tagName===&#x27;SELECT&#x27;?&#x27;onchange&#x27;:&#x27;oninput&#x27;;el[event]=()=&gt;{state.career.apps[el.dataset.appIndex][el.dataset.appField]=el.value;save();};});
+        const body=q(&#x27;#sw-paper-body&#x27;); body.replaceChildren();
+        state.career.paper.forEach((item,i)=&gt;{
+          const tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`&lt;td&gt;${esc(item.text)}&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-paper-owner=&quot;${i}&quot; value=&quot;${esc(item.owner)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-paper-date=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(item.date)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-paper-status=&quot;${i}&quot;&gt;&lt;option&gt;未开始&lt;/option&gt;&lt;option&gt;进行中&lt;/option&gt;&lt;option&gt;已完成&lt;/option&gt;&lt;option&gt;已调整&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-paper-block=&quot;${i}&quot;&gt;&lt;option&gt;是&lt;/option&gt;&lt;option&gt;否&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-paper-evidence=&quot;${i}&quot; value=&quot;${esc(item.evidence)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-paper-note=&quot;${i}&quot; value=&quot;${esc(item.note)}&quot;&gt;&lt;/td&gt;`;
+          body.append(tr); tr.querySelector(`[data-paper-status=&quot;${i}&quot;]`).value=item.status; tr.querySelector(`[data-paper-block=&quot;${i}&quot;]`).value=item.block;
+        });
+        [&#x27;owner&#x27;,&#x27;date&#x27;,&#x27;status&#x27;,&#x27;block&#x27;,&#x27;evidence&#x27;,&#x27;note&#x27;].forEach(k=&gt;qa(`[data-paper-${k}]`).forEach(el=&gt;{const event=el.tagName===&#x27;SELECT&#x27;?&#x27;onchange&#x27;:&#x27;oninput&#x27;;el[event]=()=&gt;{state.career.paper[el.dataset[`paper${k[0].toUpperCase()+k.slice(1)}`]][k]=el.value;save();};}));
+      }
+
+      function renderHealth() {
+        const body=q(&#x27;#sw-health-body&#x27;); body.replaceChildren();
+        state.health.monthly.forEach((item,i)=&gt;{
+          const tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`&lt;td&gt;${item.month}&lt;/td&gt;&lt;td&gt;${item.item}&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-health-plan=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(item.plan)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;select class=&quot;form-select&quot; data-health-status=&quot;${i}&quot;&gt;&lt;option&gt;待安排&lt;/option&gt;&lt;option&gt;已预约&lt;/option&gt;&lt;option&gt;已完成&lt;/option&gt;&lt;option&gt;已调整&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-health-actual=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(item.actual)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-health-note=&quot;${i}&quot; value=&quot;${esc(item.note)}&quot;&gt;&lt;/td&gt;`;
+          body.append(tr); tr.querySelector(`[data-health-status=&quot;${i}&quot;]`).value=item.status;
+        });
+        [&#x27;plan&#x27;,&#x27;status&#x27;,&#x27;actual&#x27;,&#x27;note&#x27;].forEach(k=&gt;qa(`[data-health-${k}]`).forEach(el=&gt;{const event=el.tagName===&#x27;SELECT&#x27;?&#x27;onchange&#x27;:&#x27;oninput&#x27;;el[event]=()=&gt;{state.health.monthly[el.dataset[`health${k[0].toUpperCase()+k.slice(1)}`]][k]=el.value;save();};}));
+        while(state.health.logs.length&lt;2) state.health.logs.push({date:&#x27;&#x27;,med:&#x27;待填写&#x27;,abnormal:&#x27;待填写&#x27;,doctor:&#x27;待填写&#x27;,outcome:&#x27;&#x27;,note:&#x27;&#x27;});
+        const logBody=q(&#x27;#sw-health-log-body&#x27;); logBody.replaceChildren();
+        state.health.logs.forEach((item,i)=&gt;{
+          const tr=document.createElement(&#x27;tr&#x27;);
+          tr.innerHTML=`&lt;td&gt;&lt;input class=&quot;form-control&quot; data-health-log-field=&quot;date&quot; data-health-log-index=&quot;${i}&quot; type=&quot;date&quot; value=&quot;${esc(item.date)}&quot;&gt;&lt;/td&gt;${[&#x27;med&#x27;,&#x27;abnormal&#x27;,&#x27;doctor&#x27;].map(k=&gt;`&lt;td&gt;&lt;select class=&quot;form-select&quot; data-health-log-field=&quot;${k}&quot; data-health-log-index=&quot;${i}&quot;&gt;&lt;option&gt;待填写&lt;/option&gt;&lt;option&gt;是&lt;/option&gt;&lt;option&gt;否&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;td&gt;&lt;input class=&quot;form-control&quot; data-health-log-field=&quot;outcome&quot; data-health-log-index=&quot;${i}&quot; value=&quot;${esc(item.outcome)}&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input class=&quot;form-control&quot; data-health-log-field=&quot;note&quot; data-health-log-index=&quot;${i}&quot; value=&quot;${esc(item.note)}&quot;&gt;&lt;/td&gt;`;
+          logBody.append(tr); [&#x27;med&#x27;,&#x27;abnormal&#x27;,&#x27;doctor&#x27;].forEach(k=&gt;tr.querySelector(`[data-health-log-field=&quot;${k}&quot;]`).value=item[k]);
+        });
+        qa(&#x27;[data-health-log-field]&#x27;).forEach(el=&gt;{const event=el.tagName===&#x27;SELECT&#x27;?&#x27;onchange&#x27;:&#x27;oninput&#x27;;el[event]=()=&gt;{state.health.logs[el.dataset.healthLogIndex][el.dataset.healthLogField]=el.value;save();};});
       }
 
       function renderSchedule() {
@@ -1393,13 +1684,13 @@ html&gt;body{padding:0}&lt;/style&gt;
         });
       }
 
-      function renderAll(){renderDay();renderWeek();renderCourses();renderSchedule();const p=phase(parseDate(q(&#x27;#sw-day&#x27;).value));q(&#x27;#sw-phase-line&#x27;).textContent=`${p.name} · ${p.focus}`;}
+      function renderAll(){renderDay();renderWeek();renderMilestones();renderCourses();renderExams();renderCareer();renderHealth();renderSchedule();const p=phase(parseDate(q(&#x27;#sw-day&#x27;).value));q(&#x27;#sw-phase-line&#x27;).textContent=`${p.name} · ${p.focus}`;}
 
       qa(&#x27;[data-tab]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{
         qa(&#x27;[data-tab]&#x27;).forEach(b=&gt;b.classList.toggle(&#x27;btn-primary&#x27;,b===btn));
         qa(&#x27;[data-panel]&#x27;).forEach(p=&gt;p.hidden=p.dataset.panel!==btn.dataset.tab);
       }));
-      q(&#x27;#sw-day&#x27;).value=iso(today); q(&#x27;#sw-week&#x27;).value=iso(mondayOf(today));
+      q(&#x27;#sw-day&#x27;).value=iso(today); q(&#x27;#sw-week&#x27;).value=iso(reviewWeekOf(today));
       q(&#x27;#sw-day&#x27;).addEventListener(&#x27;change&#x27;,renderAll); q(&#x27;#sw-week&#x27;).addEventListener(&#x27;change&#x27;,renderWeek);
       q(&#x27;#sw-main-day&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{ensureDay(q(&#x27;#sw-day&#x27;).value).main=e.target.value;save();});
       q(&#x27;#sw-day-note&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{ensureDay(q(&#x27;#sw-day&#x27;).value).note=e.target.value;save();});
@@ -1418,12 +1709,19 @@ html&gt;body{padding:0}&lt;/style&gt;
         try {
           const imported=JSON.parse(await file.text());
           if(!imported || typeof imported!==&#x27;object&#x27;) throw new Error(&#x27;invalid&#x27;);
-          state={daily:imported.daily||{},weekly:imported.weekly||{},courses:imported.courses||{}}; save(); renderAll();
+          state=imported; normalizeState(); save(); renderAll();
           q(&#x27;#sw-backup-status&#x27;).textContent=&#x27;备份已导入。&#x27;;
         } catch (_) { q(&#x27;#sw-backup-status&#x27;).textContent=&#x27;无法读取该备份文件。&#x27;; }
         e.target.value=&#x27;&#x27;;
       });
-      Object.entries({med:&#x27;m-med&#x27;,warn:&#x27;m-warn&#x27;,strength:&#x27;m-strength&#x27;,cardio:&#x27;m-cardio&#x27;,ielts:&#x27;m-ielts&#x27;,gre:&#x27;m-gre&#x27;,apps:&#x27;m-apps&#x27;,paper:&#x27;m-paper&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).addEventListener(&#x27;input&#x27;,e=&gt;{ensureWeek(q(&#x27;#sw-week&#x27;).value).metrics[k]=e.target.value;save();renderWeek();}));
+      Object.entries({med:&#x27;m-med&#x27;,warn:&#x27;m-warn&#x27;,strength:&#x27;m-strength&#x27;,cardio:&#x27;m-cardio&#x27;,ielts:&#x27;m-ielts&#x27;,gre:&#x27;m-gre&#x27;,apps:&#x27;m-apps&#x27;,sql:&#x27;m-sql&#x27;,paper:&#x27;m-paper&#x27;,old:&#x27;m-old&#x27;,sleep:&#x27;m-sleep&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).addEventListener(&#x27;input&#x27;,e=&gt;{ensureWeek(q(&#x27;#sw-week&#x27;).value).metrics[k]=e.target.value;save();renderWeek();}));
+      q(&#x27;#m-next&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{ensureWeek(q(&#x27;#sw-week&#x27;).value).metrics.next=e.target.value;save();});
+      q(&#x27;#ielts-date&#x27;).addEventListener(&#x27;change&#x27;,e=&gt;{state.exams.ielts.date=e.target.value;save();});
+      q(&#x27;#gre-date&#x27;).addEventListener(&#x27;change&#x27;,e=&gt;{state.exams.gre.date=e.target.value;save();});
+      Object.entries({v:&#x27;gre-v&#x27;,q:&#x27;gre-q&#x27;,awa:&#x27;gre-awa&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).addEventListener(&#x27;input&#x27;,e=&gt;{state.exams.gre[k]=e.target.value;save();renderGreDecision();}));
+      Object.entries({problem:&#x27;career-problem&#x27;,action:&#x27;career-action&#x27;,scope:&#x27;career-scope&#x27;,result:&#x27;career-result&#x27;,delivery:&#x27;career-delivery&#x27;}).forEach(([k,id])=&gt;q(`#${id}`).addEventListener(&#x27;input&#x27;,e=&gt;{state.career.project[k]=e.target.value;save();}));
+      q(&#x27;#sw-add-app&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{state.career.apps.push({company:&#x27;&#x27;,role:&#x27;&#x27;,duration:&#x27;&#x27;,accept:&#x27;待确认&#x27;,date:&#x27;&#x27;,status:&#x27;未投递&#x27;,interview:&#x27;&#x27;,match:&#x27;&#x27;,next:&#x27;&#x27;,note:&#x27;&#x27;});save();renderCareer();});
+      q(&#x27;#sw-add-health-log&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{state.health.logs.push({date:&#x27;&#x27;,med:&#x27;待填写&#x27;,abnormal:&#x27;待填写&#x27;,doctor:&#x27;待填写&#x27;,outcome:&#x27;&#x27;,note:&#x27;&#x27;});save();renderHealth();});
       renderAll();
     })();
   &lt;/script&gt;
